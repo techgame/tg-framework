@@ -1,0 +1,23 @@
+syntax: glob
+
+syntax: regexp
+
+syntax: glob
+Icon?
+\.DS_Store
+*.pyc
+*.pyo
+*.log
+*~
+.*.swp
+.*.swo
+.*.orig
+\.svn/
+
+syntax: regexp
+^proj/BridgeClient/app/db/bridge.fs
+^proj/BridgeClient/app/db/bridge.fs.index
+^proj/BridgeClient/app/db/bridge.fs.lock
+^proj/BridgeClient/app/db/bridge.fs.tmp
+^proj/BridgeClient/dist
+^proj/BridgeClient/build
