@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<dockable ctxobj='dockable' xmlns='TG.skinning.toolkits.wx'>
+    <panel size='200,200' label='Dockable'>
+        <layout>
+            <layout layout-cfg='0,EXPAND'>
+                <spacer layout-cfg='1,EXPAND'/>
+                <button label='Select' layout-cfg='0,ALIGN_CENTER'>
+                    <event>ctx.model.setDockable(ctx.dockable)</event>
+                </button>
+                <spacer/>
+                <button label='Close' layout-cfg='0,ALIGN_CENTER'>
+                    <event>ctx.dockable.undock()</event>
+                </button>
+                <spacer layout-cfg='1,EXPAND'/>
+            </layout>
+            <htmlwin layout-cfg='1,EXPAND'>
+                <body xmlns='html'>This is a <b>docked panel</b> with an html box</body>
+            </htmlwin>
+        </layout>
+    </panel>
+</dockable>

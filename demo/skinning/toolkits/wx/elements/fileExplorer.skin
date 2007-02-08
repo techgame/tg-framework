@@ -1,0 +1,79 @@
+<?xml version='1.0'?>
+<skin xmlns='TG.skinning.toolkits.wx'>
+    <style>
+        image-list>image-art {size:inherit}
+    </style>
+
+    <tree ctxcode='myTree' layout-cfg='1,EXPAND' >
+        <image-list size='16,16' for='all'>
+            <image-art art='ART_FOLDER'/>
+        </image-list>
+
+        from TG.guiTools.wx.treeCtrl import TreeItem
+
+        class MyTreeItem(TreeItem):
+            def __init__(self, treeCtrl, pth, parentItem=None):
+                EVT_TREE_ITEM_EXPANDING(self.getItemModel(), treeCtrl.GetId(), self.onExpanding)
+                self.pth = pth
+
+                self.expanded = False
+                self.SetText(pth.name)
+                self.SetImage(0)
+                self.SetHasChildren(bool(pth.dirs()))
+
+                self.addToTree(treeCtrl, parentItem)
+                if parentItem is None:
+                    treeCtrl.Expand(self.GetTreeId())
+                
+            def getChildDirs(self):
+                subdirs = self.pth.dirs()
+                subdirs.sort()
+                return subdirs
+
+            def populateChildren(self, treeCtrl):
+                try:
+                    MyTreeItem = self.__class__
+                    for subpth in self.getChildDirs():
+                        child = MyTreeItem(treeCtrl, subpth, self)
+                finally:
+                    self.expanded = True
+
+            def onExpanding(self, evt):
+                if not self.expanded:
+                    eo = evt.GetEventObject()
+                    self.populateChildren(eo)
+
+
+        from TG.common import path
+        rootPath = path.path('/')
+        wx.FutureCall(10, MyTreeItem, obj, rootPath)
+
+        <event>
+            pth = obj.GetPyData(evt.GetItem()).pth
+            ctx.myList.populate(pth)
+        </event>
+    </tree>
+
+    <hline />
+
+    <list style="LC_LIST" ctxcode='myList' layout-cfg='1, EXPAND' >
+        <image-list size='16,16' for='all'>
+            <image-art art='ART_FOLDER'/>
+            <image-art art='ART_NORMAL_FILE'/>
+        </image-list>
+
+        def populate(pth):
+            obj.DeleteAllItems()
+            contents = [(0, x) for x in pth.dirs()]
+            contents.extend([(1, x) for x in pth.files()])
+            contents.sort()
+            for (img, fn) in contents:
+                obj.addItem(text=fn.name, imageIdx=img)
+
+        populate(ctx.myTree.rootPath)
+
+        <event>
+            print "You selected My List!:", evt.GetText()
+        </event>
+    </list>
+</skin>

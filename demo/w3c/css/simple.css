@@ -1,0 +1,16 @@
+* {
+    image: ''; 
+    font-size: medium; 
+    fgcolor: inherit; 
+    bgcolor: inherit; 
+}
+
+slideshow { bgcolor: blue; fgcolor: white; }
+slideshow > title { font-size: 80pt; }
+slide { bgcolor: black; fgcolor: yellow}
+
+point#special {
+    font-size: xx-large;
+    fgcolor: red;
+}
+

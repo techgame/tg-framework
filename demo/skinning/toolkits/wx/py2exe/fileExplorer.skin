@@ -1,0 +1,60 @@
+<?xml version='1.0'?>
+<skin xmlns='TG.skinning.toolkits.wx'>
+    <style>
+        image-list>image-art {size:inherit}
+    </style>
+
+    <tree layout-cfg='1,EXPAND' style='TR_DEFAULT_STYLE'>
+        <image-list size='16,16' for='all'>
+            <image-art art='ART_FOLDER'/>
+        </image-list>
+
+        def populate(pth, treeItem=None):
+            if treeItem is None:
+                subTreeItem = obj.AddRoot(pth.name, 0, data=wx.TreeItemData(pth))
+            else:
+                subTreeItem = obj.AppendItem(treeItem, pth.name, 0, data=wx.TreeItemData(pth))
+
+            subdir = [x for x in pth.dirs() if x.name not in ('.svn', '.cvs')]
+            subdir.sort()
+            for subpth in subdir:
+                populate(subpth, subTreeItem)
+            if treeItem is None:
+                obj.Expand(subTreeItem)
+
+        from TG.common import path
+        root = path.path('.').abspath().parent.parent
+        populate(root)
+
+        <event>
+            pth = obj.GetItemData(evt.GetItem()).GetData()
+            ctx.myList.populate(pth)
+        </event>
+    </tree>
+
+    <hline />
+
+    <list style="LC_LIST" ctxobj='myList' layout-cfg='1, EXPAND' >
+        <image-list size='16,16' for='all'>
+            <image-art art='ART_FOLDER'/>
+            <image-art art='ART_NORMAL_FILE'/>
+        </image-list>
+
+        def populate(pth):
+            obj.DeleteAllItems()
+            contents = [(0, x) for x in pth.dirs() if x.name not in ('.svn', '.cvs')]
+            contents.extend([(1, x) for x in pth.files()])
+            contents.sort()
+            for idx, (img, fn) in enumerate(contents):
+                obj.InsertImageStringItem(idx, fn.name, img)
+        obj.populate = populate
+
+        from TG.common import path
+        root = path.path('.').abspath().parent.parent
+        populate(root)
+
+        <event>
+            print "You selected My List!:", evt.GetText()
+        </event>
+    </list>
+</skin>

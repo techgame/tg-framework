@@ -1,0 +1,8 @@
+<?xml version='1.0'?>
+<dockable ctxobj='dockable' xmlns='TG.skinning.toolkits.wx'>
+    <panel size='200,200' label='Calendar'>
+        <layout>
+            <pycrust-shell layout-cfg='1,EXPAND'/>
+        </layout>
+    </panel>
+</dockable>

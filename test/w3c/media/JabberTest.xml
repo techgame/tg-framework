@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<stream:stream to="%s" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams">
+SENT: <iq type="get" id="JCOM_175" to="RuneBladeDevelopment@private.jabber.org"><query xmlns="jabber:iq:conference"></query></iq>
+RECV: <iq type='error' id='JCOM_175' to='shane.holloway@jabber.org/Laptop' from='RuneBladeDevelopment@private.jabber.org'><query xmlns='jabber:iq:conference'/><error code='404'>Not Found</error></iq>
+SENT: <presence to="RuneBladeDevelopment@private.jabber.org"/>
+SENT: <iq to="RuneBladeDevelopment@private.jabber.org" type="set" id="JCOM_176"><query xmlns="jabber:iq:conference"><nick>shane.holloway</nick><name>Rune Blade Development</name><secret>please</secret></query></iq>
+RECV: <iq to='shane.holloway@jabber.org/Laptop' type='result' id='JCOM_176' from='RuneBladeDevelopment@private.jabber.org'><query xmlns='jabber:iq:conference'><nick>shane.holloway</nick><name>Rune Blade Development</name><id>runebladedevelopment@private.jabber.org/afbb6fdffcd61aee86493d387eb388203288c986</id></query></iq>
+RECV: <iq type='set' to='shane.holloway@jabber.org/Laptop' from='runebladedevelopment@private.jabber.org'><conference xmlns='jabber:iq:browse' name='Rune Blade Development' type='private'/></iq><iq type='set' to='shane.holloway@jabber.org/Laptop' from='runebladedevelopment@private.jabber.org'><user xmlns='jabber:iq:browse' jid='runebladedevelopment@private.jabber.org/afbb6fdffcd61aee86493d387eb388203288c986' name='shane.holloway'/></iq>
+SENT: <message id="JCOM_177" to="RuneBladeDevelopment@private.jabber.org" type="groupchat"><body>test</body></message>
+RECV: <message id='JCOM_177' to='shane.holloway@jabber.org/Laptop' type='groupchat' from='runebladedevelopment@private.jabber.org/afbb6fdffcd61aee86493d387eb388203288c986' cnu=''><body>test</body></message>
+
+SENT: <iq type="get" id="JCOM_175" to="RuneBladeDevelopment@private.jabber.org"><query xmlns="jabber:iq:conference" /></iq>
+RECV: <iq type='result' id='JCOM_175' to='shane.holloway@jabber.org/Laptop' from='RuneBladeDevelopment@private.jabber.org'><query xmlns='jabber:iq:conference'><name>Rune Blade Development</name><nick>shane.holloway</nick><id>runebladedevelopment@private.jabber.org/afbb6fdffcd61aee86493d387eb388203288c986</id></query></iq>
+SENT: <presence to="RuneBladeDevelopment@private.jabber.org"/>
+SENT: <iq to="RuneBladeDevelopment@private.jabber.org" type="set" id="JCOM_178"><query xmlns="jabber:iq:conference"><nick>shane.holloway</nick></query></iq>
+RECV: <presence to='shane.holloway@jabber.org/Laptop' from='runebladedevelopment@private.jabber.org/afbb6fdffcd61aee86493d387eb388203288c986' cnu=''/>
+RECV: <iq to='shane.holloway@jabber.org/Laptop' type='result' id='JCOM_178' from='RuneBladeDevelopment@private.jabber.org'/>
+
+</stream:stream>

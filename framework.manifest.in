@@ -1,0 +1,12 @@
+include framework.manifest framework.manifest.in
+include ./packageDefinitions.py
+include *.txt
+
+recursive-include docs *
+
+recursive-include demo *
+
+recursive-include test *
+
+global-exclude *.svn *.svn/*
+

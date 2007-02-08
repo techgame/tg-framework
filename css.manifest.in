@@ -1,0 +1,14 @@
+include css.manifest css.manifest.in
+include ./packageDefinitions.py
+include *.txt
+
+recursive-include docs/w3c/css *.*
+
+recursive-include demo/w3c/css *.*
+
+include test/__init__.py test/all.py test/w3c/__init__.py test/w3c/all.py
+recursive-include test/w3c *CSS*.py
+recursive-include test/w3c/media *.css
+
+global-exclude .svn .svn/*
+

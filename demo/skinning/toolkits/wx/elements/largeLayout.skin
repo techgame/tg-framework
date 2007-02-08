@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<skin xmlns='TG.skinning.toolkits.wx'>
+    <layout layout-cfg='0,EXPAND'>
+        <spinner min='0' max='100' value='20' layout-cfg='1,'>
+            <event>print "You selected My Spinner:", evt.GetInt()</event>
+        </spinner>
+        <spacer/>
+        <button-spinner min='0' max='100' value='20' layout-cfg='0,'>
+            <event>print "You selected My Button Spinner:", evt.GetInt()</event>
+        </button-spinner>
+    </layout>
+
+    <radiobox choices='Skinning is fun, Yes it is' label='My Radio Box'>
+        <event>print "You selected My RadioBox:", repr(evt.GetString())</event>
+    </radiobox>
+
+    <listbox select='-2' layout-cfg='1,EXPAND' size='200,800'>
+        for i,n in enumerate(vars(wx).keys()[:100]):
+            obj.Append('%d: wx.%s' % (i, n))
+
+        <event>print "You selected My ComboBox:", repr(evt.GetString())</event>
+    </listbox>
+</skin>

@@ -1,0 +1,42 @@
+* {
+    font-size: medium;
+    bgcolor: orange;
+    fgcolor: blue;
+}
+
+slideshow {
+    bgcolor: black;
+    fgcolor: white;
+}
+
+slideshow * {
+    fgcolor: inherit;
+    bgcolor: inherit;
+}
+
+slideshow > title {
+    font-size: 80pt;
+}
+
+slide {
+    image: url('page-image.png');
+}
+
+slide:last-child {
+    fgcolor: yellow;
+    image: url('last-page-image.png');
+}
+
+slide > title {
+    font-size: 40pt;
+}
+
+point {
+    font-size: medium;
+}
+
+point#special {
+    font-size: xx-large;
+    fgcolor: red;
+    bgcolor: yellow;
+}

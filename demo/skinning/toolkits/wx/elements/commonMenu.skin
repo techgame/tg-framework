@@ -1,0 +1,60 @@
+<?xml version='1.0'?>
+<skin xmlns='TG.skinning.toolkits.wx'>
+    <menu-item text='Print Info' help='My first help string'>
+        <image-art art='ART_INFORMATION' size='16,16'/>
+        <event>
+            print
+            print "First Item Evt:", evt.GetEventObject().GetTitle()
+            print 'elem name:', elem.__class__.__name__
+            print 'isinstance(obj, MenuItem):',
+            print isinstance(obj, MenuItem)
+            print 'ctx.frame is evt.GetEventObject():',
+            print ctx.frame is evt.GetEventObject()
+            print
+        </event>
+    </menu-item>
+
+    <menu-break />
+
+    <item text='Full Screen\\tF11' help='Shows My Frame on the entire screen'>
+        <event>
+            if ctx.frame.IsFullScreen():
+                ctx.frame.ShowFullScreen(False)
+            else:
+                ctx.frame.ShowFullScreen(True, FULLSCREEN_NOBORDER|FULLSCREEN_NOCAPTION)
+        </event>
+        <event type='EVT_UPDATE_UI'>
+            if ctx.frame.IsFullScreen():
+                obj.SetText('Restore from Full Screen\tF11')
+            else:
+                obj.SetText('Full Screen\tF11')
+        </event>
+    </item>
+
+    <item text='Maximize' help='Maximize My Frame'>
+        <event>
+            frame = ctx.frame
+            if frame.IsMaximized():
+                frame.Restore()
+            else:
+                frame.Maximize()
+        </event>
+        <event type='EVT_UPDATE_UI'>
+            if ctx.frame.IsMaximized():
+                obj.SetText('Restore')
+                obj.SetHelp('Maximize My Frame')
+            else:
+                obj.SetText('Maximize')
+                obj.SetHelp('Restores My Frame from Maximized State')
+        </event>
+    </item>
+
+    <break />
+
+    <menu-item text='Close|Alt-X' help='Close My Frame'>
+        <event>
+        
+            ctx.frame.Close()
+        </event>
+    </menu-item>
+</skin>

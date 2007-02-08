@@ -1,0 +1,726 @@
+/* some bits from Plone, see www.plone.org */
+body,body.editor,body.body {
+    font: 120% "Times New Roman", Arial, Verdana, Helvetica, sans-serif;
+    background: White;
+    color: Black;
+    font-size: 140%;
+}
+
+table {
+    font-size: 100%;
+}
+
+a {
+	text-decoration: underline;
+    background-color: transparent;
+}
+
+a.errorlink { 
+  color: red;
+}
+
+table {
+
+}
+
+
+img {
+    border: none;
+	vertical-align: middle;
+}
+
+p {
+    /*margin: 0.5em 0em 1em 0em;*/
+    text-align: left;
+    line-height: 1.5em;
+    margin: 0.5em 0em 0em 0em;
+}
+
+p a {
+    text-decoration: underline;
+}
+
+
+p a:active {
+	color: Red;
+    background-color: transparent;
+}
+
+p img {
+    border: 0;
+    margin: 0;
+}
+
+img.inlinephoto {
+    padding: 0;
+    padding-right: 1em;
+    padding-top: 0.7em;
+    float: left;
+}
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #8CACBB;
+    background-color: transparent;
+}
+
+
+ul { 
+    line-height: 1.5em;
+    /*list-style-image: url("bullet.gif"); */
+    margin-left: 1em;
+    padding:0;
+}
+
+ol {
+    line-height: 1.5em;
+    margin-left: 0em;
+    padding:0;
+}
+
+ul a, ol a {
+    text-decoration: underline;
+}
+
+dl {
+}
+
+dt {
+    font-weight: bold;    
+}
+
+dd {
+    line-height: 1.5em;
+    margin-bottom: 1em;
+}
+
+blockquote {
+    font-family: Times, "Times New Roman", serif;
+    font-style: italic;
+    font-size: 120%;
+}
+
+code {
+    font-size: 120%;
+    color: Black;
+    /*background-color: #dee7ec;*/
+    background-color: #cccccc;
+}
+
+pre {
+    font-size: 120%;
+    padding: 0em;
+    border: 0px solid #8cacbb;
+    color: Black;
+    background-color: #dee7ec;
+    background-color: #cccccc;
+}
+
+.netscape4 {
+    display: none;
+}
+
+/* main page styles */
+
+/*a[href]:hover { color: black; text-decoration: underline; }
+a[href]:link { color: black; text-decoration: underline; }
+a[href] { color: black; text-decoration: underline; }
+*/
+
+span.menu_selected {
+	color: black;
+  	font: 140% Verdana, Helvetica, Arial, sans-serif;
+	text-decoration: none;
+        padding-right: 0.3em;
+}
+
+a.menu {
+  	/*color: #3ba6ec; */
+  	font: 140% Verdana, Helvetica, Arial, sans-serif;
+	text-decoration: none;
+        padding-right: 0.3em;
+}
+a.menu[href]:visited, a.menu[href]:link{
+  	/*color: #3ba6ec; */
+  	font: 140% Verdana, Helvetica, Arial, sans-serif;
+	text-decoration: none;
+}
+
+a.menu[href]:hover {
+  	/*color: black;*/
+}
+
+a.nonexistent {
+  	font: 140% Verdana, Helvetica, Arial, sans-serif;
+	text-decoration: none;
+}
+
+div.project_title{
+  /*border-spacing: 20px;*/
+  font: 160% Verdana, Helvetica, Arial, sans-serif;
+  color: #3ba6ec; 
+  vertical-align: center;
+  padding-bottom: 0.3em;
+}
+
+a.wikicurrent {
+  font: 100% Verdana, Helvetica, Arial, sans-serif;
+  color: #3ba6ec; 
+  vertical-align: center;
+}
+
+
+td.wikimain {
+  vertical-align: center;
+  padding: 0 ;
+  padding-left: 1em;
+  /*background-color: #333333;*/
+  margin: 0;
+}
+  
+table.body {
+  border: 0;
+  /*padding: 0;
+  border-spacing: 0px;
+  border-collapse: separate;
+  */
+}
+
+td.page-header-left {
+  padding: 5px;
+  /*border-bottom: 1px solid #444444;*/
+}
+
+td.page-header-top {
+  padding: 0;
+    
+  /*border-bottom: 1px solid #444444;*/
+}
+
+td.sidebar {
+  padding: 1 0 0 1;
+}
+
+td.sidebar p.classblock {
+  padding: 0 5 0 5;
+  margin: 1 1 1 1;
+  border: 1px solid #444444;
+  background-color: #eeeeee;
+}
+
+td.sidebar p.userblock {
+  padding: 0 5 0 5;
+  margin: 1 1 1 1;
+  border: 1px solid #444444;
+  background-color: #eeeeff;
+}
+
+td.content {
+  padding: 1 5 1 5;
+  vertical-align: top;
+  width: 100%;
+}
+
+p.ok-message {
+  background-color: #22bb22;
+  padding: 5 5 5 5;
+  color: white;
+  font-weight: bold;
+}
+p.error-message {
+  background-color: #bb2222;
+  padding: 5 5 5 5;
+  color: white;
+  font-weight: bold;
+}
+
+
+/* style for forms */
+table.form {
+  padding: 2;
+  border-spacing: 0px;
+  border-collapse: separate;
+}
+
+table.form th {
+  color: #333388;
+  text-align: right;
+  vertical-align: top;
+  font-weight: normal;
+}
+
+table.form th.header {
+  font-weight: bold;
+  background-color: #eeeeff;
+  text-align: left;
+}
+
+table.form th.required {
+  font-weight: bold;
+}
+
+table.form td {
+  color: #333333;
+  empty-cells: show;
+  vertical-align: top;
+}
+
+table.form td.optional {
+  font-weight: bold;
+  font-style: italic;
+}
+
+table.form td.html {
+  color: #777777;
+}
+
+/* style for lists */
+table.list {
+  border-spacing: 0px;
+  border-collapse: separate;
+  vertical-align: top;
+  padding-top: 0;
+  width: 100%;
+}
+
+table.list th {
+  padding: 0 4 0 4;
+  color: #404070;
+  background-color: #eeeeff;
+  border-right: 1px solid #404070;
+  border-top: 1px solid #404070;
+  border-bottom: 1px solid #404070;
+  vertical-align: top;
+  empty-cells: show;
+}
+table.list th a[href]:hover { color: #404070 }
+table.list th a[href]:link { color: #404070 }
+table.list th a[href] { color: #404070 }
+table.list th.group {
+  background-color: #f4f4ff;
+  text-align: center;
+  font-size: 140%;
+}
+
+table.list td {
+  padding: 0 4 0 4;
+  border: 0 2 0 2;
+  border-right: 1px solid #404070;
+  color: #404070;
+  background-color: white;
+  vertical-align: top;
+  empty-cells: show;
+}
+
+table.list tr.normal td {
+  background-color: white;
+}
+
+table.list tr.alt td {
+  background-color: #efefef;
+}
+
+table.list td:first-child {
+  border-left: 1px solid #404070;
+  border-right: 1px solid #404070;
+}
+
+table.list th:first-child {
+  border-left: 1px solid #404070;
+  border-right: 1px solid #404070;
+}
+
+table.list tr.navigation th {
+  text-align: right;
+}
+table.list tr.navigation th:first-child {
+  border-right: none;
+  text-align: left;
+}
+
+
+/* style for message displays */
+table.messages {
+  border-spacing: 0px;
+  border-collapse: separate;
+  width: 100%;
+}
+
+table.messages th.header{
+  padding-top: 10px;
+  border-bottom: 1px solid gray;
+  font-weight: bold;
+  background-color: white;
+  color: #707040;
+}
+
+table.messages th {
+  font-weight: bold;
+  color: black;
+  text-align: left;
+  border-bottom: 1px solid #afafaf;
+}
+
+table.messages td {
+  font-family: monospace;
+  background-color: #efefef;
+  border-bottom: 1px solid #afafaf;
+  color: black;
+  empty-cells: show;
+  border-right: 1px solid #afafaf;
+  vertical-align: top;
+  padding: 2 5 2 5;
+}
+
+table.messages td:first-child {
+  border-left: 1px solid #afafaf;
+  border-right: 1px solid #afafaf;
+}
+
+/* style for file displays */
+table.files {
+  border-spacing: 0px;
+  border-collapse: separate;
+  width: 100%;
+}
+
+table.files th.header{
+  padding-top: 10px;
+  border-bottom: 1px solid gray;
+  font-weight: bold;
+  background-color: white;
+  color: #707040;
+}
+
+table.files th {
+  border-bottom: 1px solid #afafaf;
+  font-weight: bold;
+  text-align: left;
+}
+
+table.files td {
+  font-family: monospace;
+  empty-cells: show;
+}
+
+/* style for history displays */
+table.history {
+  border-spacing: 0px;
+  border-collapse: separate;
+  width: 100%;
+}
+
+table.history th.header{
+  padding-top: 10px;
+  border-bottom: 1px solid gray;
+  font-weight: bold;
+  background-color: white;
+  color: #707040;
+  font-size: 100%;
+}
+
+table.history th {
+  border-bottom: 1px solid #afafaf;
+  font-weight: bold;
+  text-align: left;
+  font-size: 90%;
+}
+
+table.history td {
+  font-size: 90%;
+  vertical-align: top;
+  empty-cells: show;
+}
+
+
+/* style for class list */
+table.classlist {
+  border-spacing: 0px;
+  border-collapse: separate;
+  width: 100%;
+}
+
+table.classlist th.header{
+  padding-top: 10px;
+  border-bottom: 1px solid gray;
+  font-weight: bold;
+  background-color: white;
+  color: #707040;
+}
+
+table.classlist th {
+  font-weight: bold;
+  text-align: left;
+}
+
+
+/* style for class help display */
+table.classhelp {
+  border-spacing: 0px;
+  border-collapse: separate;
+  width: 100%;
+}
+
+table.classhelp th {
+  font-weight: bold;
+  text-align: left;
+  color: #707040;
+}
+
+table.classhelp td {
+  padding: 2 2 2 2;
+  border: 1px solid black;
+  text-align: left;
+  vertical-align: top;
+  empty-cells: show;
+}
+
+
+/* style for "other" displays */
+table.otherinfo {
+  border-spacing: 0px;
+  border-collapse: separate;
+  width: 100%;
+}
+
+table.otherinfo th.header{
+  padding-top: 10px;
+  border-bottom: 1px solid gray;
+  font-weight: bold;
+  background-color: white;
+  color: #707040;
+}
+
+table.otherinfo th {
+  border-bottom: 1px solid #afafaf;
+  font-weight: bold;
+  text-align: left;
+}
+
+input {
+    border: 1px solid #8cacbb;
+    color: Black;
+    background-color: white;
+    vertical-align: middle;
+    margin-bottom: 1px; /* IE bug fix */
+    padding: 0.1em;
+}
+
+select {
+    border: 1px solid #8cacbb;
+    color: Black;
+    background-color: white;
+    vertical-align: middle;
+    margin-bottom: 1px; /* IE bug fix */
+    padding: 0.1em;
+}
+
+
+a.nonexistent {
+    font-weight: bold;
+    background-color: #F8F8F8;
+    color: #FF2222;
+}
+a.nonexistent:visited {
+    background-color: #F8F8F8;
+    color: #FF2222;
+}
+a.external {
+    color: #AA6600;
+}
+
+/*
+dl,ul,ol {
+    margin-top: 1pt;
+}
+tt,pre {
+    font-family: Lucida Console,Courier New,Courier,monotype;
+    font-size: 12pt;
+}
+pre.code {
+    margin-top: 8pt;
+    margin-bottom: 8pt;
+    background-color: #FFFFEE;
+    white-space:pre;
+    border-style:solid;
+    border-width:0pt;
+    border-color:#999999;
+    color:#111111;
+    padding:5px;
+    width:100%;
+}
+*/
+
+div.diffold {
+    background-color: #FFFF80;
+    border-style:none;
+    border-width:thin;
+    width:100%;
+}
+div.diffnew {
+    background-color: #80FF80;
+    border-style:none;
+    border-width:thin;
+    width:100%;
+}
+div.message {
+    margin-top: 6pt;
+    background-color: #E8FFE8;
+    border-style:solid;
+    border-width:1pt;
+    border-color:#999999;
+    color:#440000;
+    padding:5px;
+    width:100%;
+}
+strong.highlight {
+    background-color: #FFBBBB;
+/* as usual, NetScape fucks up with innocent CSS
+    border-color: #FFAAAA;
+    border-style: solid;
+    border-width: 1pt;
+*/
+}
+
+table.navibar {
+    background-color: #C8C8C8;
+    border-spacing: 3px;
+}
+td.navibar {
+    background-color: #E8E8E8;
+    vertical-align: middle;
+    text-align: right;
+    padding: 0px;
+}
+a.navibar {
+    text-decoration: none;
+}
+font.navibar {
+    font-family: Arial,Helvetica;
+    font-size: 12pt;
+}
+
+
+div.pagename {
+    font-size: 160%;
+    color: blue;
+    text-align: center;
+    font-weight: bold;
+    background-color: white;
+    padding: 0 ;
+}
+
+td.wikileft {
+    vertical-align: bottom;
+    /* border: 1pt solid #d13400; */
+    /*background-color: #eeeeee;*/
+    width: 10%;
+    /*border-right: 1px solid #8cacbb; */
+    
+}
+
+a.wikiaction, input.wikiaction {
+    color: black; 
+    text-decoration: None;
+    text-align: center;
+    color: black;
+    border: 1px solid #3ba6ec;
+    margin: 4px;
+    padding: 5;
+    padding-bottom: 0;
+    white-space: nowrap;
+}
+
+a.wikiaction[href]:hover { 
+	color: black; 
+	text-decoration: none; 
+	background-color: #dddddd;
+}
+
+span.wikiuserpref {
+    padding-top: 1em;
+    font-size: 140%;
+}
+
+div.wikitrail {
+    vertical-align: bottom;
+    font-size: -1;
+    padding-top: 1em;
+    display: none;
+}
+
+tr.headerrow {
+    border-width: 10px;
+    border-color: #d13400;
+    border-style: solid;
+    padding-top: 1em;
+    margin-bottom: 2em;
+}
+
+
+td.wikiaction {
+    vertical-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    width: 40%;
+}
+
+div.wikiaction {
+    vertical-align: center;
+    /*border-bottom: 1px solid #8cacbb;*/
+    padding:0;
+    text-align: right;
+}
+
+div.wikieditmenu {
+    text-align: right;
+}
+
+form.wikiedit {
+    border: 1px solid #8cacbb;
+    background-color: #f0f0f0;
+    background-color: #fabf00;
+    padding: 1em;
+    padding-right: 0em;
+}
+
+div.legenditem {
+    padding-top: 0.5em;
+    padding-left: 0.3em;
+}
+
+span.wikitoken {
+   background-color: #eeeeee;
+}
+    
+
+
+/* heading and paragraph text */
+
+div.heading {
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    background-color: #58b3ef;
+    background-color: #FFFFFF; 
+    /*color: #4893cf;*/
+    color: black;
+    padding-top: 0.5em;
+    padding-bottom:0.1em;
+    text-align: left;
+    margin-top:0.5em; 
+    /*margin-bottom:8pt;*/
+    font-weight: bold;
+    font-size: 160%;
+}
+
+div.text  {
+    /*margin: 0.5em 0em 1em 0em;*/
+    text-align: justify;
+    line-height: 1.5em;
+    margin: 0.5em 0em 0em 0em;
+}
+    
+
+
+
+

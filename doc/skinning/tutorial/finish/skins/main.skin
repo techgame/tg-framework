@@ -1,0 +1,124 @@
+<?xml version='1.0'?>
+<skin xmlns='TG.skinning.toolkits.wx'>
+    <style>
+        layout#host>* {layout-border: ALL,5}
+        layout#tool {layout-cfg:0,EXPAND}
+        frame {
+            show: 1;
+            size: 800,600;
+            locking: 1;
+        }
+        sash#rssSitesSash{
+            align: left;
+            size-border-all: 1;
+            style: 'NO_3D|CLIP_CHILDREN';
+        }
+
+        #rssSites {
+            layout-cfg: 1, EXPAND;
+            layout-minsize: 200,200;
+            font-size: large;
+        }
+
+        #rssNewsItems {
+            layout-cfg: 1,EXPAND;
+            layout-minsize: 300,300;
+            style: "LC_REPORT";
+            font-size: x-large;
+        }
+
+        sash#rssNewsDetailSash{
+            align: bottom;
+            show: False;
+            size-border-all: 5;
+        }
+
+        sash#rssNewsDetailSash>panel {
+            bgcolor: #EEEEEE;
+        }
+
+        #rssNewsDetailTitle {
+            layout-cfg: 1,ALIGN_CENTRE_VERTICAL;
+            style: ST_NO_AUTORESIZE;
+            font-size: xx-large;
+            font-style: bold;
+            bgcolor: #CCCCCC;
+            text: Wy;
+        }
+    </style>
+
+    <frame title='RSS News Reader'>
+        <layout-sash>
+            <sash ctxobj='model.sitesSash' id='rssSitesSash'>
+                <panel>
+                    <layout id='host'>
+                        <layout id='tool'>
+                            <button label='Add'>
+                                <event run='ctx.model.onAddSite(evt)' />
+                            </button>
+                            <spacer layout-cfg='1,EXPAND'/>
+                            <button label='Refresh' default='True'>
+                                <event>ctx.model.refresh()</event>
+                            </button>
+                        </layout>
+
+                        <label text='TODO: add sites load/save features' />
+
+                        <tree id='rssSites' ctxobj='model.siteTree' >
+                            <event run='ctx.model.populateFromEvt(evt)' />
+                        </tree>
+                    </layout>
+                </panel>
+            </sash>
+
+            <layout>
+                <panel>
+                    <layout id='host'>
+                        <layout id='tool'>
+                            <label text='RSS URL:' />
+                            <spacer />
+                            <textbox ctxobj='model.rssUrl' 
+                                layout-cfg='1,ALIGN_CENTRE_VERTICAL'
+                                text='timeline.xml'
+                                />
+                            <spacer />
+                            <button label='Refresh' default='True'>
+                                <event>ctx.model.populate()</event>
+                            </button>
+                        </layout>
+                        <list id='rssNewsItems' ctxobj='model.newsList'>
+                            <column col='0' text='Title' width='250' proportion='1' align='LIST_FORMAT_LEFT'/>
+                            <column col='1' text='Category' width='100' proportion='0' align='LIST_FORMAT_CENTRE'/>
+                            <column col='2' text='Author' width='100' proportion='0' align='LIST_FORMAT_CENTRE'/>
+
+                            <event run='ctx.model.onShowDetails(evt)' />
+                            <event type='EVT_LIST_ITEM_ACTIVATED' run='ctx.model.onFollowLink()' />
+                        </list>
+                    </layout>
+                </panel>
+            </layout>
+
+            <sash ctxobj='model.detailsSash' id='rssNewsDetailSash'>
+                <panel bgcolor="#EEEEEE">
+                    <layout id='host'>
+                        <layout id='tool'>
+                            <label id='rssNewsDetailTitle' ctxobj='model.detailTitle' size='1,24'/>
+                            <spacer />
+                            <button label='View in Web Browser'>
+                                <event run='ctx.model.onFollowLink()' />
+                            </button>
+                        </layout>
+                        <htmlwin ctxobj='model.details' layout-cfg='1,EXPAND|ALL,5'>
+                            <html xmlns='http://www.w3.org/1999/xhtml' />
+
+                            <event>
+                                ctx.model.onFollowLink(evt.GetLink().GetHref())
+                            </event>
+                        </htmlwin>
+                    </layout>
+                </panel>
+            </sash>
+
+        </layout-sash>
+    </frame>
+</skin>

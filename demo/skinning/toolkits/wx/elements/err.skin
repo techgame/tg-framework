@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<skin xmlns='TG.skinning.toolkits.wx'>
+    <style>
+        layout * {layout-cfg: '0, EXPAND|ALL,10'}
+    </style>
+    <frame class='main' title='My Frame' show='1'>
+        <panel>
+            <layout>
+                <label text='Please move this frame to get events!' />
+                <text ctxobj='output' />
+            </layout>
+        </panel>
+        <event type='EVT_MOVE'>
+            ctx.output.SetValue('Moved to: %s' % (evt.GetPosition(),))
+            print "Asserting false"
+            assert False, "Error from inside the skin"
+        </event>
+    </frame>
+</skin>

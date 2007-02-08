@@ -1,0 +1,25 @@
+<?xml version='1.0' ?>
+<!-- Derived from 13.7.2 DOM Example of the Python 2.3 Documentation -->
+<slideshow>
+    <title>Demo slideshow combined with CSS</title>
+
+    <slide>
+        <title>Intro CSS Slide</title>
+        <point>This is a CSS demo for xml.dom</point>
+        <point>for processing slides with CSS!</point>
+    </slide>
+
+    <slide>
+        <title>Another CSS demo slide</title>
+
+        <point>It is important</point>
+        <point>To have more than</point>
+        <point>one slide</point>
+    </slide>
+
+    <slide>
+        <title>Last CSS demo slide title</title>
+        <point id='special'>Thanks for looking at CSS!</point>
+    </slide>
+
+</slideshow>

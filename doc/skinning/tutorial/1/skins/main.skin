@@ -1,0 +1,155 @@
+<?xml version='1.0'?>
+<skin xmlns='TG.skinning.toolkits.wx'>
+
+    <style>
+        frame {frame-main:1; locking:1; size:'800,600'}
+        frame>layout {layout-cfg:'1,EXPAND'}
+        layout>layout {layout-cfg:'0,EXPAND'}
+        frame>layout>panel {layout-cfg:'1,EXPAND'}
+    </style>
+    <frame title='PyDevSpace Browser' show='1'>
+        <layout>
+            <panel color="blue">
+
+                <layout-sash ctxobj='sashLayout'>
+                    <sash ctxobj='sash1' align='top' size-border-all='5' >
+                        <panel>
+                            <layout css-class='stretch' orient='horizontal'>
+                                <list style="LC_REPORT" size="(100, 200)" layout-cfg='1,EXPAND'>
+                                    <column col='0' text='Path' width='200'>
+                                        <event>
+                                            MessageBox('You clicked on the "Title" column!', parent=elem.getParentFrame())
+                                        </event>
+                                    </column>
+                                    import sys, os
+
+                                    for each in sys.path:
+                                        root = obj.addItem(None, 0, text=os.path.basename(each))
+                                        obj.setPyDataByKey(root.GetId(), each)
+
+                                    <event type='EVT_LIST_ITEM_SELECTED'>
+                                        item = obj.getPyDataByKey(evt.GetIndex())
+
+                                        ctx.model.listModules(item)
+                                        evt.Skip()
+                                    </event>
+
+                                </list>
+                                <list style="LC_REPORT" size="(100, 200)" layout-cfg='1,EXPAND'>
+                                    <column col='0' text='Modules' width='200'>
+                                        <event>
+                                            MessageBox('You clicked on the "Title" column!', parent=elem.getParentFrame())
+                                        </event>
+                                    </column>
+                                    import sys, os
+
+                                    <event type='EVT_LIST_ITEM_SELECTED'>
+                                        item = obj.getPyDataByKey(evt.GetIndex())
+
+                                        ctx.model.listClasses(item)
+                                        evt.Skip()
+                                    </event>
+                                    def loadModulesForPath():
+                                        obj.DeleteAllItems()
+                                        for path in ctx.model.modules:
+                                            dir, file = os.path.split(path)
+                                            name, ext = os.path.splitext(file)
+                                            root = obj.addItem(None, 0, text=name)
+                                            obj.setPyDataByKey(root.GetId(), path)
+                                    ctx.model.loadModulesForPath = loadModulesForPath
+
+                                </list>
+                                <list style="LC_REPORT" size="(100, 200)" layout-cfg='1,EXPAND'>
+                                    <column col='0' text='Class' width='200'>
+                                        <event>
+                                            MessageBox('You clicked on the "Class" column!', parent=elem.getParentFrame())
+                                        </event>
+                                    </column>
+                                    <event>
+                                        item = obj.getPyDataByKey(evt.GetIndex())
+                                        ctx.model.listMethods(item)
+                                    </event>
+                                    def loadClassesForModule():
+                                        print "... loadClassesForModule"
+                                        obj.DeleteAllItems()
+                                        for key, cl in ctx.model.classes.items():
+                                            root = obj.addItem(None, 0, text=key)
+                                            obj.setPyDataByKey(root.GetId(), cl)
+                                    ctx.model.loadClassesForModule = loadClassesForModule
+
+                                </list>
+                                <list style="LC_REPORT" size="(100, 200)" layout-cfg='1,EXPAND'>
+                                    <column col='0' text='Category' width='200'>
+                                        <event>
+                                            MessageBox('You clicked on the "Title" column!', parent=elem.getParentFrame())
+                                        </event>
+                                    </column>
+                                </list>
+                                <list style="LC_REPORT" size="(100, 200)" layout-cfg='1,EXPAND'>
+                                    <column col='0' text='Method' width='200'>
+                                        <event>
+                                            MessageBox('You clicked on the "Title" column!', parent=elem.getParentFrame())
+                                        </event>
+                                    </column>
+                                    <event>
+                                        # let's try to load this sucker
+                                        line = obj.getPyDataByKey(evt.GetIndex())
+                                        ctx.model.loadMethodBody(line)
+                                    </event>
+                                    def loadMethodsForClass():
+                                        print "... loadMethodsForClass"
+                                        obj.DeleteAllItems()
+                                        for method, line in ctx.model.methods.items():
+                                            root = obj.addItem(None, 0, text=method)
+                                            obj.setPyDataByKey(root.GetId(), line)
+                                    ctx.model.loadMethodsForClass = loadMethodsForClass 
+                                </list>
+                            </layout>
+                        </panel>
+                    </sash>
+                    <layout layout-cfg="1,EXPAND">
+                        <panel>
+                            <layout>
+                                <layout-horizontal layout-cfg="0,EXPAND">
+                                    <button label="Instance" />
+                                    <button label="Docs" />
+                                    <button label="Class" />
+                                </layout-horizontal>
+                                <text-styled ctxobj="model.editPane" layout-cfg='1,EXPAND|ALL,5'>
+                                    # ported from the wxPython demo
+                                    import keyword
+                                    obj.SetLexer(STC_LEX_PYTHON)
+                                    obj.SetKeyWords(0, " ".join(keyword.kwlist))
+
+                                    obj.StyleClearAll()
+                                    obj.StyleSetSpec(STC_STYLE_DEFAULT,     "size:10")
+                                    obj.StyleSetSpec(STC_STYLE_LINENUMBER,  "back:#C0C0C0,size:10")
+                                    obj.StyleSetSpec(STC_STYLE_CONTROLCHAR, "face:Courier")
+                                    obj.StyleSetSpec(STC_STYLE_BRACELIGHT,  "fore:#FFFFFF,back:#0000FF,bold")
+                                    obj.StyleSetSpec(STC_STYLE_BRACEBAD,    "fore:#000000,back:#FF0000,bold")
+                                    obj.StyleSetSpec(STC_P_DEFAULT, "fore:#000000,size:10")
+                                    obj.StyleSetSpec(STC_P_COMMENTLINE, "fore:#007F00,size:10")
+                                    obj.StyleSetSpec(STC_P_NUMBER, "fore:#007F7F,size:10")
+                                    obj.StyleSetSpec(STC_P_STRING, "fore:#7F007F,size:10")
+                                    obj.StyleSetSpec(STC_P_CHARACTER, "fore:#7F007F,size:10")
+                                    obj.StyleSetSpec(STC_P_WORD, "fore:#00007F,bold,size:10")
+                                    obj.StyleSetSpec(STC_P_TRIPLE, "fore:#7F0000,size:10")
+                                    obj.StyleSetSpec(STC_P_TRIPLEDOUBLE, "fore:#7F0000,size:10")
+                                    obj.StyleSetSpec(STC_P_CLASSNAME, "fore:#0000FF,bold,underline,size:10")
+                                    obj.StyleSetSpec(STC_P_DEFNAME, "fore:#007F7F,bold,size:10")
+                                    obj.StyleSetSpec(STC_P_OPERATOR, "bold,size:10")
+                                    obj.StyleSetSpec(STC_P_IDENTIFIER, "fore:#000000,size:10")
+                                    obj.StyleSetSpec(STC_P_COMMENTBLOCK, "fore:#7F7F7F,size:10")
+                                    obj.StyleSetSpec(STC_P_STRINGEOL, "fore:#000000,back:#E0C0E0,eol,size:10")
+
+                                    obj.SetText('Watch this space!')
+                                    obj.Colourise(0, -1)
+                                </text-styled>
+                            </layout>
+                        </panel>
+                    </layout>
+                </layout-sash>
+            </panel>
+        </layout>
+    </frame>
+</skin>

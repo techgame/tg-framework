@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title>Techgame Python Skinning Framework</title>
+<link rel="stylesheet" href="voidspace.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="techgame-python-skinning-framework">
+<h1 class="title">Techgame Python Skinning Framework</h1>
+<div class="section">
+<h1><a id="introduction" name="introduction">Introduction</a></h1>
+<p>The Techgame Python Skinning Framework (know hereafter as Framework) was
+designed to allow interface definition on various GUI toolkits using XML, css,
+and _Python: <a class="reference" href="http://www.python.org">http://www.python.org</a>.</p>
+<p>It currently supports _wxWidgets: <a class="reference" href="http://www.wxwidgets.org">http://www.wxwidgets.org</a> on Mac OS X, Linux
+and Windows. It contains a fully w3c compliant css parser <a class="footnote-reference" href="#id3" id="id1" name="id1">[1]</a>, a very nice XML
+toolkit, a Notification system, BTree data classes, a uri resolver system and
+other useful utilities. Additionally, there are 439 tests <a class="footnote-reference" href="#id4" id="id2" name="id2">[2]</a>, and 55 demo
+programs providing various usage examples.</p>
+<p>This framework has gone through four generations of refactoring and has been
+used in at least five companies for commercial applications, several of which are
+still being sold and developed.</p>
+<p>This document will first go through the top level folders and then get into
+specific usage and feature documentation.</p>
+<blockquote>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1" name="id3">[1]</a></td><td>The only one we know of in the Python language</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2" name="id4">[2]</a></td><td>As of 7 Feb 2006</td></tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+<div class="section">
+<h1><a id="contents" name="contents">Contents</a></h1>
+<ul class="simple">
+<li><a class="reference" href="#directory-structure">Directory Structure</a><ul>
+<li><a class="reference" href="#demo">demo</a></li>
+<li><a class="reference" href="#doc">doc</a></li>
+<li><a class="reference" href="#proj">proj</a></li>
+<li><a class="reference" href="#sandbox">sandbox</a></li>
+<li><a class="reference" href="#scripts">scripts</a></li>
+<li><a class="reference" href="#test">test</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#using-the-framework">Using the Framework</a><ul>
+<li><a class="reference" href="#installation">Installation</a></li>
+<li><a class="reference" href="#application-structure">Application Structure</a><ul>
+<li><a class="reference" href="#models-and-skins">Models and Skins</a></li>
+<li><a class="reference" href="#media">media</a></li>
+<li><a class="reference" href="#inline-python">Inline Python</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#distributing-applications">Distributing applications</a></li>
+<li><a class="reference" href="#debugging-tips-and-tricks">Debugging tips and tricks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section">
+<h1><a id="directory-structure" name="directory-structure">Directory Structure</a></h1>
+<blockquote>
+<p id="demo"><strong>demo</strong></p>
+<p>This folder contains the folders <strong>skinning</strong> and <strong>css</strong>. The skinning
+folder further contains <strong>applications</strong> and <strong>toolkits</strong>. <strong>toolkits</strong> is
+where, as you may expect, to find demos related to the implemented underlying
+GUI tookits. Currently, <strong>toolkits</strong> only has <strong>wx</strong>, the only implemented
+GUI toolkit. Under <strong>wx</strong>, you have:</p>
+<blockquote>
+<dl class="docutils">
+<dt>docking</dt>
+<dd>Dynamic docking of skin files, and examples for docked versus undocked windows.</dd>
+<dt>elements</dt>
+<dd>This is where the lions share of demos are. All of the implemented
+wxWidgets should have at least one example in here. <a class="footnote-reference" href="#id7" id="id5" name="id5">[3]</a></dd>
+<dt>extension</dt>
+<dd>This folder has examples demonstrating how to create your own custom
+widgets for use as tags in the skin files.</dd>
+<dt>localization</dt>
+<dd>Language localization example</dd>
+<dt>py2exe</dt>
+<dd>Showing how to set up a py2exe config file to build an exe including the skinning framework.</dd>
+<dt>uriResolver</dt>
+<dd>It should show how to use the uriResolver classes, but it doesn't right now</dd>
+<dt>zipfile</dt>
+<dd>Yes, you can run your skinning apps from a zipfile; this shows you how!
+This uses ZipResolver, part of the Resolver framework.</dd>
+</dl>
+</blockquote>
+<p id="doc"><strong>doc</strong></p>
+<p>You are already here if you are reading this.</p>
+<p id="proj"><strong>proj</strong></p>
+<p>This is where the implementation code resides for the whole Framework. It's folders are:</p>
+<blockquote>
+<dl class="docutils">
+<dt>algorithms</dt>
+<dd>Currently btree and graphSearch algorithm implementations</dd>
+<dt>common</dt>
+<dd>This folder contains machinery for other parts of the skinning framework</dd>
+<dt>container</dt>
+<dd>Client usable BTree and weakDict classes</dd>
+<dt>guiTools</dt>
+<dd>Wrapper and helper modules for certain widgets; wx, win32, and pil. the
+<strong>wx</strong> folder contains some handy tools for using PIL, wxSizers, wx
+progress indicators, colors, bitmaps, etc.  The <strong>win32</strong> folder contains
+and activex wrapper and alpha blending support.</dd>
+<dt>interop</dt>
+<dd>Ctypes helper classes for dynamic libraries</dd>
+<dt>introspection</dt>
+<dd>tools for supporting line numbers in skin files in tracebacks.</dd>
+<dt>notifications</dt>
+<dd>Very useful set of modules for publish-subscribe and subject-observer style
+notifications framework. These can publish objects as well as simply notify
+via a callback.</dd>
+<dt>skinning</dt>
+<dd>This where the bulk of the code is; it contains GUI agnostic code in
+common (such as xmlNode and friends), the skinning engine, the GUI specific toolkit code.</dd>
+<dt>tasking</dt>
+<dd>Similar to the notifications framework, but you add Task objects and they
+call you back. Think of task driven events.</dd>
+<dt>tools</dt>
+<dd>currently has a copy of docutils</dd>
+<dt>uriResolver</dt>
+<dd>Filesystem and zipfile resolver classes. Very handy.</dd>
+<dt>w3c</dt>
+<dd>xml parser framework and css engine. The xml system uses expat, but
+provides a very nice front end to dealing with xml data. <a class="footnote-reference" href="#id8" id="id6" name="id6">[4]</a> However, this
+framework is customized to handle providing accurate line numbers and
+context with tracebacks so that you get the same level of debuggability
+with the skin files that you do with the associated Python files.</dd>
+</dl>
+</blockquote>
+<p id="sandbox"><strong>sandbox</strong></p>
+<p>Subject to change, but it contains experiments and such. If you find
+something you like in there, feel free! Um, pilComposites is very cool - if
+you like alpha-blended-on-the-fly images for use as, say, gorgeous buttons on
+a gui app.</p>
+<p id="scripts"><strong>scripts</strong></p>
+<p>Some helper scripts, and a way to get integrated tracebacks in vim</p>
+<p id="test"><strong>test</strong></p>
+<p>Where the tests are</p>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5" name="id7">[3]</a></td><td>Notably missing is a wxGrid implementation</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6" name="id8">[4]</a></td><td>Yes, we know there are 50 million xml libraries out there, but we
+started this in 2000 and haven't found anything so much better that we have
+needed to replace it :)</td></tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+<div class="section">
+<h1><a id="using-the-framework" name="using-the-framework">Using the Framework</a></h1>
+<p>This section should hopefully give you enough useful information to create your
+own applications based on this Framework.</p>
+<div class="section">
+<h2><a id="installation" name="installation">Installation</a></h2>
+<p>There are several ways you can install the systems, but the one we commonly use is to put a <em>pth</em> file in the
+site-packages folder such as <strong>Dev.pth</strong>:</p>
+<pre class="literal-block">
+/Users/brian/Dev
+</pre>
+<p>In the <em>Dev</em> folder I typically have a <em>TG</em> folder with the various Techgame
+python projects in it. This TG folder needs to have an <strong>__init__.py</strong> as
+follows:</p>
+<pre class="literal-block">
+__path__.extend([
+  '/Users/brian/Dev/TG/framework/proj',
+  '/Users/brian/Dev/TG/objectdbs/proj'])
+</pre>
+<p>This would allow you to import TG.skinning an TG.dybase, if you had both
+projects. You could omit any path that wasn't needed.</p>
+</div>
+<div class="section">
+<h2><a id="application-structure" name="application-structure">Application Structure</a></h2>
+<p>Nothing annoys me more than checking out a promising project, working through
+the tutorial/examples, and discovering that all the examples are toys, and that
+everything you really want to do requires a trip to the newsgroups!</p>
+<p>Needless to say, I'm not gonna do that. I'm gonna show the usage patterns that
+we use in our commercial apps and show the fun stuff like drag and drop,
+dynamic docking of skins, model-skin interaction, etc.</p>
+<p>There are plenty of toy examples in the <strong>demo/skinning/toolkits/wx/elements folder</strong>.</p>
+<div class="section">
+<h3><a id="models-and-skins" name="models-and-skins">Models and Skins</a></h3>
+<p>Framework applications are just Python apps, so you can use any libraries you
+can get your hands on, but Framework apps have at least one skin and an
+associated model. You can see in the demos that many of them don't even have
+the skin in a separate file, but put the xml in a string and then use it. It is
+much easier to use separate skin files in real apps, however.</p>
+<p>Let's start out with a not so simple finished product, contained in a single
+skin file, and then strip it out and build a step at a time:</p>
+<div class="code-block">
+<span class="h_xmlstart">&lt;?</span><span class="h_tag">xml</span><span class="h_other">&nbsp;</span><span class="h_attribute">version</span><span class="h_other">=</span><span class="h_singlestring">'1.0'</span><span class="h_xmlend">?&gt;</span><span class="h_default"><br/>
+</span><span class="h_tag">&lt;skin</span><span class="h_other">&nbsp;</span><span class="h_attribute">xmlns</span><span class="h_other">=</span><span class="h_singlestring">'TG.skinning.toolkits.wx'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;style&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;layout#host&gt;*&nbsp;{layout-border:&nbsp;ALL,5}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;layout#tool&nbsp;{layout-cfg:0,EXPAND}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;frame&nbsp;{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;show:&nbsp;1;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size:&nbsp;800,600;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locking:&nbsp;1;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sash#rssSitesSash{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;align:&nbsp;left;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size-border-all:&nbsp;1;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;style:&nbsp;'NO_3D|CLIP_CHILDREN';<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#rssSites&nbsp;{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;layout-cfg:&nbsp;1,&nbsp;EXPAND;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;layout-minsize:&nbsp;200,200;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-size:&nbsp;large;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#rssNewsItems&nbsp;{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;layout-cfg:&nbsp;1,EXPAND;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;layout-minsize:&nbsp;300,300;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;style:&nbsp;"LC_REPORT";<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-size:&nbsp;x-large;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sash#rssNewsDetailSash{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;align:&nbsp;bottom;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;show:&nbsp;False;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size-border-all:&nbsp;5;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sash#rssNewsDetailSash&gt;panel&nbsp;{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bgcolor:&nbsp;#EEEEEE;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#rssNewsDetailTitle&nbsp;{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;layout-cfg:&nbsp;1,ALIGN_CENTRE_VERTICAL;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;style:&nbsp;ST_NO_AUTORESIZE;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-size:&nbsp;xx-large;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-style:&nbsp;bold;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bgcolor:&nbsp;#CCCCCC;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text:&nbsp;Wy;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/style&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;frame</span><span class="h_other">&nbsp;</span><span class="h_attribute">title</span><span class="h_other">=</span><span class="h_singlestring">'RSS&nbsp;News&nbsp;Reader'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;layout-sash&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;sash</span><span class="h_other">&nbsp;</span><span class="h_attribute">ctxobj</span><span class="h_other">=</span><span class="h_singlestring">'model.sitesSash'</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'rssSitesSash'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;panel&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;layout</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'host'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;layout</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'tool'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;button</span><span class="h_other">&nbsp;</span><span class="h_attribute">label</span><span class="h_other">=</span><span class="h_singlestring">'Add'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;event</span><span class="h_other">&nbsp;</span><span class="h_attribute">run</span><span class="h_other">=</span><span class="h_singlestring">'ctx.model.onAddSite(evt)'</span><span class="h_other">&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/button&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;spacer</span><span class="h_other">&nbsp;</span><span class="h_attribute">layout-cfg</span><span class="h_other">=</span><span class="h_singlestring">'1,EXPAND'</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;button</span><span class="h_other">&nbsp;</span><span class="h_attribute">label</span><span class="h_other">=</span><span class="h_singlestring">'Refresh'</span><span class="h_other">&nbsp;</span><span class="h_attribute">default</span><span class="h_other">=</span><span class="h_singlestring">'True'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;event&gt;</span><span class="h_default">ctx.model.refresh()</span><span class="h_tag">&lt;/event&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/button&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/layout&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;label</span><span class="h_other">&nbsp;</span><span class="h_attribute">text</span><span class="h_other">=</span><span class="h_singlestring">'TODO:&nbsp;add&nbsp;sites&nbsp;load/save&nbsp;features'</span><span class="h_other">&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;tree</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'rssSites'</span><span class="h_other">&nbsp;</span><span class="h_attribute">ctxobj</span><span class="h_other">=</span><span class="h_singlestring">'model.siteTree'</span><span class="h_other">&nbsp;</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;event</span><span class="h_other">&nbsp;</span><span class="h_attribute">run</span><span class="h_other">=</span><span class="h_singlestring">'ctx.model.populateFromEvt(evt)'</span><span class="h_other">&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/tree&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/layout&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/panel&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/sash&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;layout&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;panel&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;layout</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'host'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;layout</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'tool'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;label</span><span class="h_other">&nbsp;</span><span class="h_attribute">text</span><span class="h_other">=</span><span class="h_singlestring">'RSS&nbsp;URL:'</span><span class="h_other">&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;spacer</span><span class="h_other">&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;textbox</span><span class="h_other">&nbsp;</span><span class="h_attribute">ctxobj</span><span class="h_other">=</span><span class="h_singlestring">'model.rssUrl'</span><span class="h_other"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_attribute">layout-cfg</span><span class="h_other">=</span><span class="h_singlestring">'1,ALIGN_CENTRE_VERTICAL'</span><span class="h_other"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_attribute">text</span><span class="h_other">=</span><span class="h_singlestring">'timeline.xml'</span><span class="h_other"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;spacer</span><span class="h_other">&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;button</span><span class="h_other">&nbsp;</span><span class="h_attribute">label</span><span class="h_other">=</span><span class="h_singlestring">'Refresh'</span><span class="h_other">&nbsp;</span><span class="h_attribute">default</span><span class="h_other">=</span><span class="h_singlestring">'True'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;event&gt;</span><span class="h_default">ctx.model.populate()</span><span class="h_tag">&lt;/event&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/button&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/layout&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;list</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'rssNewsItems'</span><span class="h_other">&nbsp;</span><span class="h_attribute">ctxobj</span><span class="h_other">=</span><span class="h_singlestring">'model.newsList'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;column</span><span class="h_other">&nbsp;</span><span class="h_attribute">col</span><span class="h_other">=</span><span class="h_singlestring">'0'</span><span class="h_other">&nbsp;</span><span class="h_attribute">text</span><span class="h_other">=</span><span class="h_singlestring">'Title'</span><span class="h_other">&nbsp;</span><span class="h_attribute">width</span><span class="h_other">=</span><span class="h_singlestring">'250'</span><span class="h_other">&nbsp;</span><span class="h_attribute">proportion</span><span class="h_other">=</span><span class="h_singlestring">'1'</span><span class="h_other">&nbsp;</span><span class="h_attribute">align</span><span class="h_other">=</span><span class="h_singlestring">'LIST_FORMAT_LEFT'</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;column</span><span class="h_other">&nbsp;</span><span class="h_attribute">col</span><span class="h_other">=</span><span class="h_singlestring">'1'</span><span class="h_other">&nbsp;</span><span class="h_attribute">text</span><span class="h_other">=</span><span class="h_singlestring">'Category'</span><span class="h_other">&nbsp;</span><span class="h_attribute">width</span><span class="h_other">=</span><span class="h_singlestring">'100'</span><span class="h_other">&nbsp;</span><span class="h_attribute">proportion</span><span class="h_other">=</span><span class="h_singlestring">'0'</span><span class="h_other">&nbsp;</span><span class="h_attribute">align</span><span class="h_other">=</span><span class="h_singlestring">'LIST_FORMAT_CENTRE'</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;column</span><span class="h_other">&nbsp;</span><span class="h_attribute">col</span><span class="h_other">=</span><span class="h_singlestring">'2'</span><span class="h_other">&nbsp;</span><span class="h_attribute">text</span><span class="h_other">=</span><span class="h_singlestring">'Author'</span><span class="h_other">&nbsp;</span><span class="h_attribute">width</span><span class="h_other">=</span><span class="h_singlestring">'100'</span><span class="h_other">&nbsp;</span><span class="h_attribute">proportion</span><span class="h_other">=</span><span class="h_singlestring">'0'</span><span class="h_other">&nbsp;</span><span class="h_attribute">align</span><span class="h_other">=</span><span class="h_singlestring">'LIST_FORMAT_CENTRE'</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;event</span><span class="h_other">&nbsp;</span><span class="h_attribute">run</span><span class="h_other">=</span><span class="h_singlestring">'ctx.model.onShowDetails(evt)'</span><span class="h_other">&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;event</span><span class="h_other">&nbsp;</span><span class="h_attribute">type</span><span class="h_other">=</span><span class="h_singlestring">'EVT_LIST_ITEM_ACTIVATED'</span><span class="h_other">&nbsp;</span><span class="h_attribute">run</span><span class="h_other">=</span><span class="h_singlestring">'ctx.model.onFollowLink()'</span><span class="h_other">&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/list&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/layout&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/panel&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/layout&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;sash</span><span class="h_other">&nbsp;</span><span class="h_attribute">ctxobj</span><span class="h_other">=</span><span class="h_singlestring">'model.detailsSash'</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'rssNewsDetailSash'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;panel</span><span class="h_other">&nbsp;</span><span class="h_attribute">bgcolor</span><span class="h_other">=</span><span class="h_doublestring">"#EEEEEE"</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;layout</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'host'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;layout</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'tool'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;label</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'rssNewsDetailTitle'</span><span class="h_other">&nbsp;</span><span class="h_attribute">ctxobj</span><span class="h_other">=</span><span class="h_singlestring">'model.detailTitle'</span><span class="h_other">&nbsp;</span><span class="h_attribute">size</span><span class="h_other">=</span><span class="h_singlestring">'1,24'</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;spacer</span><span class="h_other">&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;button</span><span class="h_other">&nbsp;</span><span class="h_attribute">label</span><span class="h_other">=</span><span class="h_singlestring">'View&nbsp;in&nbsp;Web&nbsp;Browser'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;event</span><span class="h_other">&nbsp;</span><span class="h_attribute">run</span><span class="h_other">=</span><span class="h_singlestring">'ctx.model.onFollowLink()'</span><span class="h_other">&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/button&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/layout&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;htmlwin</span><span class="h_other">&nbsp;</span><span class="h_attribute">ctxobj</span><span class="h_other">=</span><span class="h_singlestring">'model.details'</span><span class="h_other">&nbsp;</span><span class="h_attribute">layout-cfg</span><span class="h_other">=</span><span class="h_singlestring">'1,EXPAND|ALL,5'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;html</span><span class="h_other">&nbsp;</span><span class="h_attribute">xmlns</span><span class="h_other">=</span><span class="h_singlestring">'<a href="http://www.w3.org/1999/xhtml">http://www.w3.org/1999/xhtml</a>'</span><span class="h_other">&nbsp;</span><span class="h_tagend">/&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;event&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.model.onFollowLink(evt.GetLink().GetHref())<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/event&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/htmlwin&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/layout&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/panel&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/sash&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/layout-sash&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/frame&gt;</span><span class="h_default"><br/>
+</span><span class="h_tag">&lt;/skin&gt;</span>
+</div>
+<p>Hmm, there seems to be a lot of stuff, doesn't there? Not to worry, there is
+definitely a structure that helps you build a step at a time.</p>
+<p>The finished product would look like this:</p>
+<img alt="tutorial/finish/screenshot.png" class="centerimage" src="tutorial/finish/screenshot.png" />
+<p>Let's first rip out everything but the bare bones layout of the screen:</p>
+<div class="code-block">
+<span class="h_xmlstart">&lt;?</span><span class="h_tag">xml</span><span class="h_other">&nbsp;</span><span class="h_attribute">version</span><span class="h_other">=</span><span class="h_singlestring">'1.0'</span><span class="h_xmlend">?&gt;</span><span class="h_default"><br/>
+</span><span class="h_tag">&lt;skin</span><span class="h_other">&nbsp;</span><span class="h_attribute">xmlns</span><span class="h_other">=</span><span class="h_singlestring">'TG.skinning.toolkits.wx'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;frame</span><span class="h_other">&nbsp;</span><span class="h_attribute">title</span><span class="h_other">=</span><span class="h_singlestring">'RSS&nbsp;News&nbsp;Reader'</span><span class="h_other">&nbsp;</span><span class="h_attribute">show</span><span class="h_other">=</span><span class="h_singlestring">'1'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;layout-sash&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;sash</span><span class="h_other">&nbsp;</span><span class="h_attribute">ctxobj</span><span class="h_other">=</span><span class="h_singlestring">'model.sitesSash'</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'rssSitesSash'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;panel&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/panel&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/sash&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;layout&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;panel&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/panel&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/layout&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;sash</span><span class="h_other">&nbsp;</span><span class="h_attribute">ctxobj</span><span class="h_other">=</span><span class="h_singlestring">'model.detailsSash'</span><span class="h_other">&nbsp;</span><span class="h_attribute">id</span><span class="h_other">=</span><span class="h_singlestring">'rssNewsDetailSash'</span><span class="h_tag">&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;panel&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/panel&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/sash&gt;</span><span class="h_default"><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/layout-sash&gt;</span><span class="h_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="h_tag">&lt;/frame&gt;</span><span class="h_default"><br/>
+</span><span class="h_tag">&lt;/skin&gt;</span>
+</div>
+<p>... and the associated model, rssReader.py</p>
+<div class="code-block">
+<span class="p_commentline">#!/usr/bin/env&nbsp;python</span><span class="p_default"><br/>
+</span><span class="p_commentblock">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><span class="p_default"><br/>
+</span><span class="p_commentblock">##~&nbsp;Copyright&nbsp;(C)&nbsp;2002-2004&nbsp;&nbsp;TechGame&nbsp;Networks,&nbsp;LLC.</span><span class="p_default"><br/>
+</span><span class="p_commentblock">##~</span><span class="p_default"><br/>
+</span><span class="p_commentblock">##~&nbsp;This&nbsp;library&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or</span><span class="p_default"><br/>
+</span><span class="p_commentblock">##~&nbsp;modify&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;BSD&nbsp;style&nbsp;License&nbsp;as&nbsp;found&nbsp;in&nbsp;the</span><span class="p_default"><br/>
+</span><span class="p_commentblock">##~&nbsp;LICENSE&nbsp;file&nbsp;included&nbsp;with&nbsp;this&nbsp;distribution.</span><span class="p_default"><br/>
+</span><span class="p_commentblock">##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><span class="p_default"><br/>
+<br/>
+</span><span class="p_commentline">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><span class="p_default"><br/>
+</span><span class="p_commentline">#~&nbsp;Imports</span><span class="p_default"><br/>
+</span><span class="p_commentline">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><span class="p_default"><br/>
+<br/>
+<br/>
+</span><span class="p_word">import</span><span class="p_default">&nbsp;</span><span class="p_identifier">wx</span><span class="p_default"><br/>
+<br/>
+</span><span class="p_word">from</span><span class="p_default">&nbsp;</span><span class="p_identifier">TG</span><span class="p_operator">.</span><span class="p_identifier">skinning</span><span class="p_operator">.</span><span class="p_identifier">toolkits</span><span class="p_operator">.</span><span class="p_identifier">wx</span><span class="p_default">&nbsp;</span><span class="p_word">import</span><span class="p_default">&nbsp;</span><span class="ps_base85string">wxSkinModel</span><span class="p_default"><br/>
+<br/>
+</span><span class="p_commentline">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><span class="p_default"><br/>
+</span><span class="p_commentline">#~&nbsp;Skin&nbsp;Model</span><span class="p_default"><br/>
+</span><span class="p_commentline">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><span class="p_default"><br/>
+<br/>
+</span><span class="p_word">class</span><span class="p_default">&nbsp;</span><span class="p_classname">RSSNewsSkinModel</span><span class="p_operator">(</span><span class="ps_base85string">wxSkinModel</span><span class="p_operator">):</span><span class="p_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p_identifier">xmlSkinRef</span><span class="p_default">&nbsp;</span><span class="p_operator">=</span><span class="p_default">&nbsp;</span><span class="p_character">'/skins/main.skin'</span><span class="p_default"><br/>
+<br/>
+<br/>
+</span><span class="p_commentline">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><span class="p_default"><br/>
+</span><span class="p_commentline">#~&nbsp;Main</span><span class="p_default"><br/>
+</span><span class="p_commentline">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><span class="p_default"><br/>
+<br/>
+</span><span class="p_word">if</span><span class="p_default">&nbsp;</span><span class="p_word">__name__</span><span class="p_default">&nbsp;</span><span class="p_operator">==</span><span class="p_default">&nbsp;</span><span class="p_character">'__main__'</span><span class="p_operator">:</span><span class="p_default"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p_identifier">RSSNewsSkinModel</span><span class="p_operator">().</span><span class="p_identifier">skinModel</span><span class="p_operator">()</span><span class="p_default"><br/>
+</span>
+</div>
+<p>What happens if you run <strong>pythonw rssReader.py</strong>? You get a standard system
+window with a title of <em>RSS News Reader</em>; it can be resized and has standard
+window buttons on it, but that <em>looks</em> to be about it.</p>
+<img alt="tutorial/1/screenshot.png" src="tutorial/1/screenshot.png" />
+</div>
+<div class="section">
+<h3><a id="media" name="media">Media</a></h3>
+</div>
+<div class="section">
+<h3><a id="inline-python" name="inline-python">Inline Python</a></h3>
+</div>
+</div>
+<div class="section">
+<h2><a id="distributing-applications" name="distributing-applications">Distributing applications</a></h2>
+</div>
+<div class="section">
+<h2><a id="debugging-tips-and-tricks" name="debugging-tips-and-tricks">Debugging tips and tricks</a></h2>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,795 @@
+/*
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+em, i {
+  /* Typically serif fonts have much nicer italics */
+  font-family: Times New Roman, Times, serif;
+}
+
+a.target {
+  color: blue;
+}
+
+a.target {
+  color: blue;
+}
+
+a.toc-backref {
+  text-decoration: none;
+  color: black;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #444499;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #666666;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #444499;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+}
+/*
+* Here is the SilverCity css and one more the code-block docutils directive
+*/
+
+.code_default
+{
+    FONT-FAMILY: "Courier New", Courier, monospace;
+    FONT-SIZE: 10pt;
+}
+
+/* CSS */
+  
+.css_class
+{
+    color: #900000;
+}
+
+.css_comment
+{
+    color: green;
+    font-style: italic;
+}
+
+.css_default
+{
+}
+
+.css_directive
+{
+    color: #009000;
+    font-weight: bold;
+}
+
+.css_doublestring
+{
+    color: navy;
+}
+
+.css_id
+{
+    color: #900000;
+}
+
+.css_identifier
+{
+    color: black;
+}
+
+.css_important
+{
+    color: blue;
+}
+
+.css_operator
+{
+    color: #000090;
+    font-weight: bold;
+}
+
+.css_pseudoclass
+{
+    color: #900000;
+}
+
+.css_singlestring
+{
+    color: navy;
+}
+
+.css_tag
+{
+    color: #900000;
+    font-weight: bold;
+}
+
+.css_unknown_identifier
+{
+    color: red;
+}
+
+.css_unknown_pseudoclass
+{
+    color: #ff0000;
+}
+
+.css_value
+{
+    color: navy;
+}
+
+/* C/C++/JavaScript */
+
+.c_character
+{
+    color: olive;
+}
+
+.c_comment
+{
+    color: green;
+    font-style: italic;
+}
+
+.c_commentdoc
+{
+    color: green;
+    font-style: italic;
+}
+
+.c_commentdockeyword
+{
+    color: navy;
+    font-weight: bold;
+}
+
+.c_commentdockeyworderror
+{
+    color: red;
+    font-weight: bold;
+}
+
+.c_commentline
+{
+    color: green;
+    font-style: italic;
+}
+
+.c_commentlinedoc
+{
+    color: green;
+    font-style: italic;
+}
+
+.c_default
+{
+}
+
+.c_identifier
+{
+    color: black;
+}
+
+.c_number
+{
+    color: #009999;
+}
+
+.c_operator
+{
+    color: black;
+}
+
+.c_preprocessor
+{
+    color: navy;
+    font-weight: bold;
+}
+
+.c_regex
+{
+    color: olive;
+}
+
+.c_string
+{
+    color: olive;
+}
+
+.c_stringeol
+{
+    color: olive;
+}
+
+.c_uuid
+{
+    color: olive;
+}
+
+.c_verbatim
+{
+    color: olive;
+}
+
+.c_word
+{
+    color: navy;
+    font-weight: bold;
+}
+
+.c_word2
+{
+    color: navy;
+    font-weight: bold;
+}
+
+/* HTML (incomplete) */
+  
+.h_asp
+{
+    color: #ffff00;
+}
+
+.h_aspat
+{
+    color: #ffdf00;
+}
+
+.h_attribute
+{
+    color: #008080;
+}
+
+.h_attributeunknown
+{
+    color: #ff0000;
+}
+
+.h_cdata
+{
+    color: #ffdf00;
+}
+
+.h_comment
+{
+    color: #808000;
+}
+
+.h_default
+{
+}
+
+.h_doublestring
+{
+    color: olive;
+}
+
+.h_entity
+{
+    color: #800080;
+}
+
+.h_number
+{
+    color: #009999;
+}
+
+.h_other
+{
+    color: #800080;
+}
+
+.h_script
+{
+    color: #000080;
+}
+
+.h_singlestring
+{
+    color: olive;
+}
+
+.h_tag
+{
+    color: #000080;
+}
+
+.h_tagend
+{
+    color: #000080;
+}
+
+.h_tagunknown
+{
+    color: #ff0000;
+}
+
+.h_xmlend
+{
+    color: #0000ff;
+}
+
+.h_xmlstart
+{
+    color: #0000ff;
+}
+
+/* Perl */
+  
+.pl_array
+{
+    color: black;
+}
+
+.pl_backticks
+{
+    color: olive;
+}
+
+.pl_character
+{
+    color: olive;
+}
+
+.pl_commentline
+{
+    color: green;
+    font-style: italic;
+}
+
+.pl_datasection
+{
+    color: olive;
+}
+
+.pl_default
+{
+}
+
+.pl_error
+{
+    color: red;
+    font-style: bold;
+}
+
+.pl_hash
+{
+    color: black;
+}
+
+.pl_here_delim
+{
+    color: olive;
+}
+
+.pl_here_q
+{
+    color: olive;
+}
+
+.pl_here_qq
+{
+    color: olive;
+}
+
+.pl_here_qx
+{
+    color: olive;
+}
+
+.pl_identifier
+{
+    color: black;
+}
+
+.pl_longquote
+{
+    color: olive;
+}
+
+.pl_number
+{
+    color: #009999;
+}
+
+.pl_operator
+{
+    color: black;
+}
+
+.pl_pod
+{
+    color: black;
+    font-style: italic;
+}
+
+.pl_preprocessor
+{
+    color: navy;
+    font-weight: bold;
+}
+
+.pl_punctuation
+{
+    color: black;
+}
+
+.pl_regex
+{
+    color: olive;
+}
+
+.pl_regsubst
+{
+    color: olive;
+}
+
+.pl_scalar
+{
+    color: black;
+}
+
+.pl_string
+{
+    color: olive;
+}
+
+.pl_string_q
+{
+    color: olive;
+}
+
+.pl_string_qq
+{
+    color: olive;
+}
+
+.pl_string_qr
+{
+    color: olive;
+}
+
+.pl_string_qw
+{
+    color: olive;
+}
+
+.pl_string_qx
+{
+    color: olive;
+}
+
+.pl_symboltable
+{
+    color: black;
+}
+
+.pl_word
+{
+    color: navy;
+    font-weight: bold;
+}
+
+/* PostScript */
+  
+.ps_default
+{
+    
+}
+    
+.ps_comment
+{
+    color: green;
+    font-style: italic;
+}
+
+ps_dsc_comment
+{
+    color: green;
+    font-style: italic;
+}
+
+.ps_dsc_value
+{
+    color: #009999;
+    font-weight: bold;
+}
+
+.ps_number
+{
+    color: #880000;
+}
+.ps_name
+{
+    color: blue;
+    font-weight: bold;
+}
+
+.ps_keyword
+{
+    color: navy;
+    font-weight: bold;
+}
+
+.ps_literal
+{
+    color: olive;
+}
+
+.ps_immeval
+{
+    color: black;
+}
+
+.ps_paren_array
+{
+    color: black;
+}
+
+.ps_paren_dict
+{
+    color: black;
+}
+
+.ps_paren_proc
+{
+    color: black;
+}
+
+.ps_text
+{
+    color: black;
+}
+
+.ps_hexstring
+{
+    color: black;
+}
+
+.ps_base85string
+{
+    font-style: bold;
+    color: #A06060;
+    /* background: #FFE8E8; */
+}
+
+.ps_badstringchar
+{
+    color: red;
+}
+
+/* Python */
+
+.p_character
+{
+    color: olive;
+}
+
+.p_classname
+{
+    color: blue;
+    font-weight: bold;
+}
+
+.p_commentblock
+{
+    color: gray;
+    font-style: italic;
+}
+
+.p_commentline
+{
+    color: green;
+    font-style: italic;
+}
+
+.p_default
+{
+}
+
+.p_defname
+{
+    color: #009999;
+    font-weight: bold;
+}
+
+.p_identifier
+{
+    color: black;
+}
+
+.p_number
+{
+    color: #009999;
+}
+
+.p_operator
+{
+    color: black;
+}
+
+.p_string
+{
+    color: olive;
+}
+
+.p_stringeol
+{
+    color: olive;
+}
+
+.p_triple
+{
+    color: olive;
+}
+
+.p_tripledouble
+{
+    color: olive;
+}
+
+.p_word
+{
+    color: navy;
+    font-weight: bold;
+}
+
+/* YAML */
+
+.yaml_comment
+{
+    color: #008800;
+    font-style: italic;
+}
+
+.yaml_default
+{
+}
+
+.yaml_document
+{
+    color: #808080;
+    font-style: italic;
+}
+
+.yaml_identifier
+{
+    color: navy;
+    font-weight: bold;
+}
+
+.yaml_keyword
+{
+    color: #880088;
+}
+
+.yaml_number
+{
+    color: #880000;
+}
+
+.yaml_reference
+{
+    color: #008888;
+}
+
+div.code-block{
+    margin-left: 2em ;
+    margin-right: 2em ;
+    background-color: #eeeeee;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 10pt;
+}
+
+IMG {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

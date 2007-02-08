@@ -1,0 +1,30 @@
+<?xml version='1.0'?>
+<frame ctx-push='0' xmlns='TG.skinning.toolkits.wx' frame-main='False'>
+    <dock-container ctxobj='dockable'>
+        <panel size='200,200' label='Container'>
+            <layout>
+                <layout layout-cfg='0,EXPAND'>
+                    <spacer layout-cfg='1,EXPAND'/>
+                    <button label='Select' layout-cfg='0,ALIGN_CENTER'>
+                        <event>ctx.model.setDockable(ctx.dockable)</event>
+                    </button>
+                    <spacer/>
+                    <button label='Close' layout-cfg='0,ALIGN_CENTER'>
+                        <event>ctx.dockable.undock()</event>
+                    </button>
+                    <spacer layout-cfg='1,EXPAND'/>
+                </layout>
+                <htmlwin layout-cfg='1,EXPAND'>
+                    <body xmlns='html'>This is a docked panel with an html box</body>
+                </htmlwin>
+            </layout>
+        </panel>
+    </dock-container>
+
+    <event>
+        if evt.CanVeto():
+            obj.Hide()
+            evt.Veto()
+        else: evt.Skip()
+    </event>
+</frame>

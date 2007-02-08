@@ -1,0 +1,29 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: Thu Jun 10 01:03:43 2004\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=latin1\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: frame.py:50
+msgid "My Frame"
+msgstr "TEST Frame"
+
+#: frame.py:51
+msgid "My Label"
+msgstr "TEST Label"
+
+#: frame.py:52
+msgid "My Textbox"
+msgstr "TEST Textbox"
+

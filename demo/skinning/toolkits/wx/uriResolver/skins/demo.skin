@@ -1,0 +1,55 @@
+<?xml version='1.0'?>
+<skin xmlns='TG.skinning.toolkits.wx'>
+    <style>
+        frame {frame-main:1; locking:1; size:'800,600'}
+        frame>layout {layout-cfg:'1,EXPAND'}
+        layout>layout {layout-cfg:'0,EXPAND'}
+        frame>layout>panel {layout-cfg:'1,EXPAND'}
+        label{layout-cfg:'0,ALIGN_RIGHT|ALIGN_CENTRE_VERTICAL|ALL,5'}
+        * {bgcolor: white}
+    </style>
+
+    <frame-splash ctxobj='splash' show='1'>
+        <image href='images/tg-logo.jpg' for='splash'/>
+    </frame-splash>
+
+    <frame title='My Frame' show='1'>
+        <image href='images/py.ico' for='icon'/>
+        <layout fit='True'>
+            <panel>
+                <layout-grid-flex cols='2'>
+                    <label text='Bitmap'/>
+                    <bitmap>
+                        <image href='images/button-normal.jpg' />
+                        <image href='images/button-hover.jpg' for='hover'/>
+                    </bitmap>
+                    <label text='Bitmap Button'/>
+                    <button-bitmap style='0'>
+                        <image href='images/button-normal.jpg' />
+                        <image href='images/button-disabled.jpg' for='disabled'/>
+                        <image href='images/button-down-hover.jpg' for='selected'/>
+                        <image href='images/button-hover.jpg' for='hover'/>
+                    </button-bitmap>
+                    <label text='Toggle Bitmap Button'/>
+                    <button-bitmap-toggle style='0'>
+                        <image href='images/button-normal.jpg' />
+                        <image href='images/button-hover.jpg' for='hover'/>
+                        <image href='images/button-down.jpg' for='down'/>
+                        <image href='images/button-down-hover.jpg' for='hover-down'/>
+                    </button-bitmap-toggle>
+                </layout-grid-flex>
+            </panel>
+        </layout>
+
+        sec = 1.5
+        import time
+        print "Pausing for dramatic effect... (%s seconds)" % sec
+        time.sleep(sec)
+
+        <empty/> 
+
+        obj.Center()
+        ctx.splash.Close()
+    </frame>
+
+</skin>

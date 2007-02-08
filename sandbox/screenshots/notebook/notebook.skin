@@ -1,0 +1,43 @@
+<?xml version='1.0'?>
+<skin xmlns='TG.skinning.toolkits.wx'>
+    <style>
+        frame {frame-main:1; locking:1; size:'800,600'}
+        frame>layout {layout-cfg:'1,EXPAND'}
+        layout>layout {layout-cfg:'1,EXPAND'}
+        frame>layout>panel {layout-cfg:'1,EXPAND'}
+    </style>
+
+    <frame title='My Frame' show='1'>
+        <layout>
+            <panel>
+                <layout>
+                    <notebook layout-cfg='1,EXPAND'>
+                        <image-list size='16,16'>
+                            <image-art art='ART_INFORMATION' size='16,16' for='Me'/>
+                            <image-art art='ART_QUESTION ' size='16,16'/>
+                            <image-art art='ART_WARNING' size='16,16' for='you'/>
+                        </image-list>
+
+                        <panel page-name='Web' page-image='Me'>
+                            <layout>
+                                <htmlwin href='http://python.org' layout-cfg='1,EXPAND'/>
+                            </layout>
+                        </panel>
+                        <page page-name='Pycrust' page-image='you'>
+                            <layout>
+                                <pycrust layout-cfg='1,EXPAND'/>
+                            </layout>
+                        </page>
+                        <calendar page-name='Calendar' page-image='1'/>
+
+                        <event>
+                            print "You selected a page \"%s\" in notebook" % (evt.GetString(),)
+                            evt.Skip()
+                        </event>
+                    </notebook>
+                </layout>
+            </panel>
+        </layout>
+        obj.Center()
+    </frame>
+</skin>
