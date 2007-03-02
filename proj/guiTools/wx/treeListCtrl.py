@@ -25,7 +25,7 @@ class TreeListItemBase(treeCtrl.TreeItemBase):
 
 class TreeListItem(TreeListItemBase, ItemEventModelSupportMixin):
     def addToTree(self, treeWin, parent=None):
-        TreeItemBase.addToTree(self, treeWin, parent=parent)
+        treeCtrl.TreeItemBase.addToTree(self, treeWin, parent=parent)
         self.installItemModel(treeWin)
 
     def installItemModel(self, treeWin):
