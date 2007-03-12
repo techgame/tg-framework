@@ -59,6 +59,7 @@ class groupbox(LayoutMixin, wxPyWidgetSkinElement):
         sizerTools.adjustLayoutContainerSizes(groupbox, layoutHost)
         self.initialStandardWindowOptions(groupbox)
         self.finalStandardWindowOptions(groupbox)
+        self.groupbox = groupbox
         return layoutHost
 
     def finishWidget(self, layoutHost, parentObj):
