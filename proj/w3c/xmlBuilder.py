@@ -63,7 +63,7 @@ class ElementStackAbstract(object):
     def getElement(self, idx=-1, wrapped=True):
         element = self.stack[idx]
         if wrapped:
-            return element.xmlGetElement(self)
+            return element.xmlGetElement(self.getBuilder())
         else: return element
     __getitem__ = getElement
 
@@ -112,7 +112,7 @@ class ElementStack(ElementStackAbstract):
 
     def push(self, element, node, nodeAttributes, nodeNSChain, srcref):
         if self.stack:
-            self.topElement().xmlAddElement(self.getBuilder(), node, element.xmlGetElement(self), srcref)
+            self.topElement().xmlAddElement(self.getBuilder(), node, element.xmlGetElement(self.getBuilder()), srcref)
         self.pushRaw(element)
     def pushRaw(self, element):
         self.stack.append(element)
