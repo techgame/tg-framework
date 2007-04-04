@@ -33,6 +33,9 @@ class HoverBaseMixin:
         wx.EVT_LEAVE_WINDOW(self, self._setNormalBitmap)
         wx.EVT_ENTER_WINDOW(self, self._setHoverBitmap)
 
+        wx.EVT_KILL_FOCUS(self, self._setNotFocusBitmap)
+        wx.EVT_SET_FOCUS(self, self._setFocusBitmap)
+
     def refreshHover(self):
         if self.hoverState:
             if self._checkStillHovering():
@@ -45,6 +48,12 @@ class HoverBaseMixin:
             self.hoverState = state
             self.refreshHover()
 
+    def _setNotFocusBitmap(self, evt):
+        self._changeToNormalBitmap()
+        evt.Skip()
+    def _setFocusBitmap(self, evt):
+        self._changeToHoverBitmap()
+        evt.Skip()
     def _setNormalBitmap(self, evt):
         self.setHoverState(False)
         evt.Skip()
