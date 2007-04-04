@@ -52,7 +52,9 @@ class background(image.BitmapImageHandlerMixin, wxPyWidgetBaseSkinElement):
 
     def addCollectedBitmapChild(self, childElem, bitmap, purposes):
         for purpose in purposes:
-            if purpose in ('','default','center', 'centered'):
+            if purpose in ('','default'):
+                self.backgrounds.append(ContextApply_p_s(self.drawTopLeft, bitmap))
+            if purpose in ('center', 'centered'):
                 self.backgrounds.append(ContextApply_p_s(self.drawCentered, bitmap))
             elif purpose in ('tile','tiled'):
                 self.backgrounds.append(ContextApply_p_s(self.drawTiledBackground, bitmap))
@@ -77,6 +79,9 @@ class background(image.BitmapImageHandlerMixin, wxPyWidgetBaseSkinElement):
 
         for callable in self.backgrounds:
             callable(eo, dc)
+
+    def drawTopLeft(self, eo, dc, bitmap):
+        dc.DrawBitmap(bitmap, 0,0, True)
 
     def drawCentered(self, eo, dc, bitmap):
         width, height = eo.GetClientSize()
