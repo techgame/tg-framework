@@ -24,6 +24,7 @@ class application(wxPySkinElement):
 
     defaultSettings = wxPySkinElement.defaultSettings.copy()
     defaultSettings.update({ 
+        'wxid': 'NewId()',
         'ctxobj': 'application',
         })
 
