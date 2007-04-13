@@ -32,7 +32,7 @@ class SkinModel(object):
     xmlSkinHref = None
 
     xmlSkinnerFactory = xmlSkinner.XMLSkinnerWithCSS
-    xmlStatisticsFactory = xmlSkinner.PrintBuilderStatistics
+    xmlStatisticsFactory = None
     xmlSkinnerInstalls = []
 
     ctxobj = 'model'
