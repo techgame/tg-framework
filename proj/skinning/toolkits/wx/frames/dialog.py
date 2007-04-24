@@ -24,6 +24,9 @@ class dialog(frame):
 
     _ctxHostObjNames = ('frame', 'dialog')
 
+    elementLocals = frame.elementLocals .copy()
+    elementLocals.update(modal='modal')
+    
     defaultSettings = frame.defaultSettings.copy()
     defaultSettings.update({ 
         })
@@ -42,3 +45,10 @@ class dialog(frame):
     def createFrame(self, winParent):
         return frame.createFrame(self, winParent, wx.Dialog)
 
+    def objShow(self, obj, show=True):
+        """objShow is broken out to allow for specialized code"""
+        if show=='modal':
+            obj.ShowModal()
+        else:
+            obj.Show(show)
+        
