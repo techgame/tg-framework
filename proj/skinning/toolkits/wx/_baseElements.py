@@ -304,6 +304,10 @@ class wxPySkinElement(wxPySkinElementBase):
 
     def initialStandardWindowOptions(self, obj):
         # attrs related to size
+        sizeClient = self.getStyleSettingEval('size-client', None)
+        if sizeClient:
+            self.objSetClientSize(obj, sizeClient)
+
         sizehints = self.getStyleSettingEval('size-hints', None)
         if sizehints:
             self.objSetSizeHints(obj, sizehints)
@@ -419,6 +423,8 @@ class wxPySkinElement(wxPySkinElementBase):
     def objSetBestSize(self, obj):
         bestSize = obj.GetBestSize()
         obj.SetSize(bestSize)
+    def objSetClientSize(self, obj, sizeClient):
+        obj.SetClientSize(sizeClient)
     def objSetSizeHints(self, obj, sizehints):
         obj.SetSizeHints(*sizehints)
     def objSetVirtualSize(self, obj, virtualSize):

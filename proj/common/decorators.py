@@ -10,6 +10,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+from new import instancemethod
 from threading import Thread
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -46,4 +47,14 @@ def threadcallExclusive(method):
     decorate.__name__ = method.__name__
     decorate.__doc__ = method.__doc__
     return decorate
+
+class nsmethod(object):
+    def __init__(self, function):
+        self.function = function
+
+    instancemethod = staticmethod(new.instancemethod)
+    def __get__(self, instance, instanceKlass):
+        if instance is None:
+            instance = instanceKlass
+        return self.instancemethod(self.function, instance, instanceKlass)
 

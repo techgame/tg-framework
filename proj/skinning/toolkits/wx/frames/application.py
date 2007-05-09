@@ -24,11 +24,15 @@ class application(wxPySkinElement):
 
     defaultSettings = wxPySkinElement.defaultSettings.copy()
     defaultSettings.update({ 
+        'wxid': 'NewId()',
         'ctxobj': 'application',
         })
 
     defaultStyleSettings = wxPySkinElement.defaultStyleSettings.copy()
     defaultStyleSettings.update({
+        'exitOnFrameDelete': 'False',
+        'name': 'wxPySkin App',
+        'vendor': 'a wxPySkin using Vendor',
         })
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -43,8 +47,16 @@ class application(wxPySkinElement):
         pass
 
     def xmlInitStarted(self, elemBuilder):
-        obj = self.createApplication()
-        self.setObject(obj)
+        kwWX = self.getStyleSettingsCollectionWX(['exitOnFrameDelete'], localized=['name', 'vendor'])
+        kwWX.rename(AppName='name', Vendor='vendor')
+
+        app = self.getOrCreateApplication()
+
+        for aname,aval in kwWX.items():
+            if aval is not None:
+                setattr(app, aname, aval)
+
+        self.setObject(app)
 
         rootctx = self.getContext().rootScope()
         rootctx.mainLoop = self.mainLoop
@@ -60,6 +72,9 @@ class application(wxPySkinElement):
     def mainLoop(self):
         return self.getObject().MainLoop()
 
-    def createApplication(self):
-        return wx.PySimpleApp()
+    def getOrCreateApplication(self):
+        app = wx.GetApp()
+        if app is None:
+            app = wx.PySimpleApp()
+        return app
 

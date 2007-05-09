@@ -38,6 +38,7 @@ class opengl_canvas(wxPyWidgetSkinElement):
     defaultStyleSettings.update({
         'layout-cfg': '1,EXPAND',
         'gl-style': 'WX_GL_RGBA, WX_GL_DOUBLEBUFFER', 
+        'gl-context': 'None',
         })
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,9 +46,14 @@ class opengl_canvas(wxPyWidgetSkinElement):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def createWidget(self, parentObj):
-        kwWX = self.getStyleSettingsCollectionWX(['style', 'pos', 'size', 'gl-style'])
+        kwWX = self.getStyleSettingsCollectionWX(['style', 'pos', 'size', 'gl-style', 'gl-context'])
         kwWX.rename(attribList='gl-style')
-        obj = wx.glcanvas.GLCanvas(parentObj, **kwWX)
+
+        glContext = kwWX.pop('gl-context')
+        if glContext is None:
+            obj = wx.glcanvas.GLCanvas(parentObj, **kwWX)
+        else:
+            obj = wx.glcanvas.GLCanvasWithContext(parentObj, glContext, **kwWX)
         return obj
 
     def finishWidget(self, obj, parentObj):
