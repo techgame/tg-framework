@@ -17,6 +17,7 @@ from TG.skinning.toolkits.wx import wxSkinModel, XMLSkin
 #~ Constants / Variables / Etc. 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
 xmlSkin = XMLSkin("""<?xml version='1.0'?>
 <skin xmlns='TG.skinning.toolkits.wx'>
     <style>
