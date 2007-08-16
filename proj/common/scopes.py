@@ -35,47 +35,58 @@ class ScopeBase(object):
     __iter__ = iterScopes
 
     def rootScope(self):
-        for last in self.iterScopes(True): pass
+        last = None
+        for last in self.iterScopes(True): 
+            pass
         return last
     root = rootScope
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+def iterFrames(depth=0):
+    f = sys._getframe(depth+1)
+    while f is not None:
+        yield f
+        f = f.f_back
+
 class StackScopeBase(ScopeBase):
-    __slots__ = ()
+    __slots__ = ['_channel_']
+
+    iterFrames = staticmethod(iterFrames)
 
     def __init__(self, channel=None, frameDepth=1):
+        self._channel_ = channel
         self._linkScopes(channel, frameDepth+1)
 
     def forChannel(klass, channel=None, frameDepth=1):
-        frame = sys._getframe(frameDepth)
-        result = klass._nextScopeFromFrame(channel, frame)
-        del frame
-        return result
+        return klass._nextScopeFromFrame(channel, klass.iterFrames(frameDepth+1))
     forChannel = classmethod(forChannel)
 
-    def _linkScopes(self, channel, frameDepth):
-        frame = sys._getframe(frameDepth)
-        frame.f_locals[self._scopeKey(channel)] = self
-        self.setNextScope(self._nextScopeFromFrame(channel, frame.f_back))
-        del frame
+    def branch(self, frameDepth=1):
+        klass = type(self)
+        return klass(self._channel_, frameDepth+1)
+
+    def _linkScopes(self, channel, frameDepth=1):
+        iterFrames = self.iterFrames(frameDepth)
+        for frame in iterFrames:
+            frame.f_locals[self._scopeKey(channel)] = self
+            del frame
+            break
+
+        self.setNextScope(self._nextScopeFromFrame(channel, iterFrames))
 
     def _scopeKey(klass, channel):
         return (klass, channel)
     _scopeKey = classmethod(_scopeKey)
 
-    def _nextScopeFromFrame(klass, channel, frame):
-        key, result = klass._scopeKey(channel), None
-
-        while frame:
-            if key in frame.f_locals:
-                result = frame.f_locals[key]
-                break
-            else:
-                frame = frame.f_back
-
-        del frame
-        return result
+    def _nextScopeFromFrame(klass, channel, iterFrames):
+        key = klass._scopeKey(channel)
+        missing = object()
+        for frame in iterFrames:
+            result = frame.f_locals.get(key, missing)
+            if result is not missing:
+                return result
+        else: return None
     _nextScopeFromFrame = classmethod(_nextScopeFromFrame)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
