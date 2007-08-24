@@ -12,7 +12,6 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import sys
-import chainedDict
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
@@ -62,7 +61,9 @@ class StackScopeBase(ScopeBase):
         return klass._nextScopeFromFrame(channel, klass.iterFrames(frameDepth+1))
     forChannel = classmethod(forChannel)
 
-    def branch(self, frameDepth=1):
+    def top(self, frameDepth=1):
+        return self.forChannel(self._channel_, frameDepth+1)
+    def push(self, frameDepth=1):
         klass = type(self)
         return klass(self._channel_, frameDepth+1)
 
@@ -72,11 +73,10 @@ class StackScopeBase(ScopeBase):
             frame.f_locals[self._scopeKey(channel)] = self
             del frame
             break
-
         self.setNextScope(self._nextScopeFromFrame(channel, iterFrames))
 
     def _scopeKey(klass, channel):
-        return (klass, channel)
+        return channel
     _scopeKey = classmethod(_scopeKey)
 
     def _nextScopeFromFrame(klass, channel, iterFrames):
@@ -86,7 +86,8 @@ class StackScopeBase(ScopeBase):
             result = frame.f_locals.get(key, missing)
             if result is not missing:
                 return result
-        else: return None
+        else: 
+            return None
     _nextScopeFromFrame = classmethod(_nextScopeFromFrame)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -103,7 +104,7 @@ class ScopeAttributeLookupMixin(object):
 
     def __getattr__(self, name):
         try:
-            return self.get(name, NotImplemented, False)
+            return self.getAtName(name, NotImplemented, False)
         except LookupError, e:
             raise AttributeError(*e.args)
 
@@ -122,7 +123,7 @@ class ScopeAttributeLookupMixin(object):
         else:
             return getattr(scope, name, default)
 
-    def get(self, key, default=None, includeSelf=True):
+    def getAtName(self, key, default=None, includeSelf=True):
         return self.getOwnerAndValue(key, default, includeSelf)[1]
     def getOwner(self, key, default=None, includeSelf=True):
         return self.getOwnerAndValue(key, default, includeSelf)[0]
@@ -163,40 +164,56 @@ class StackScope(StackScopeBase, ScopeAttributeLookupMixin):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if __name__=='__main__':
-    class TestObject(object):
-        def __init__(self):
-            self.A()
+    def A():
+        ss = StackScope()
+        ss.value = 'A'
+        ss.A = "This value was set in 'A'"
+        ss.fun = True
+        return B()
 
-        def A(self):
-            ss = StackScope()
-            ss.value = 'A'
-            ss.A = "This value was set in 'A'"
-            ss.fun = True
-            self.B()
+    def B():
+        ss = StackScope('Channel 2')
+        ss.B = "B decided it wanted a second channel"
+        ss.icky = 1
+        return C()
 
-        def B(self):
-            ss = StackScope('Channel 2')
-            ss.B = "B decided it wanted a second channel"
-            ss.icky = 1
-            self.C()
+    def C():
+        ss = StackScope()
+        ss.value = 'C'
+        ss.tricky = 3.14
+        ss.C = "The method 'C' set this value"
+        return D()
 
-        def C(self):
-            ss = StackScope()
-            ss.value = 'C'
-            ss.tricky = 3.14
-            ss.C = "The method 'C' set this value"
-            self.D()
+    def D():
+        chNone = StackScope.forChannel()
+        ch2 = StackScope.forChannel('Channel 2')
+        return dict(chNone.items()), dict(ch2.items())
 
-        def D(self):
-            chNone = StackScope.forChannel()
-            print "Default Channel:"
-            print repr(chNone)
-            print
+    cnTest = dict(
+        A="This value was set in 'A'",
+        fun=True,
+        value='C',
+        tricky=3.14,
+        C = "The method 'C' set this value",
+        )
 
-            ch2 = StackScope.forChannel('Channel 2')
-            print "Channel 2:"
-            print repr(ch2)
-            print
+    c2Test = dict(
+        B="B decided it wanted a second channel",
+        icky=1,
+        )
 
-    r = TestObject()
+    cn, c2 = A()
+    assert cn == cnTest, cn
+    assert c2 == c2Test, c2
+
+    from pprint import pprint
+    print
+    print "Passed!"
+    print
+    print "Default Channel:"
+    pprint(cn)
+    print
+    print "Channel 2:"
+    pprint(c2)
+    print
 
