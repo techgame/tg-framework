@@ -194,7 +194,9 @@ class TreeItem(TreeItemBase, ItemEventModelSupportMixin):
 
 class TreeCtrlMixin:
     TreeItemFactory = TreeItemBase
-    TreeItemClasses = wxClasses(wx.TreeItemId, wx.TreeItemIdPtr)
+    if hasattr(wx, 'TreeItemIdPtr'):
+        TreeItemClasses = wxClasses(wx.TreeItemId, wx.TreeItemIdPtr)
+    else: TreeItemClasses = wxClasses(wx.TreeItemId)
 
     def getItemModel(self, treeItemId):
         if not treeItemId: return None
