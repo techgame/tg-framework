@@ -11,20 +11,21 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
 from TG.skinning.toolkits.wx._baseElements import *
-from  wx.media import MediaCtrl, MEDIACTRLPLAYERCONTROLS_NONE, MEDIACTRLPLAYERCONTROLS_DEFAULT, MEDIACTRLPLAYERCONTROLS_STEP
-import wx.media
+from wx.lib.flashwin import FlashWindow
+import wx.lib.flashwin
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class media(wxPyWidgetSkinElement):
+
+class flash(wxPyWidgetSkinElement):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #~ Constants / Variables / Etc. 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     elementGlobals = wxPyWidgetSkinElement.elementGlobals.copy()
-    elementGlobals.update(vars(wx.media))
+    elementGlobals.update(vars(wx.lib.flashwin))
 
     defaultSettings = wxPyWidgetSkinElement.defaultSettings.copy()
     defaultSettings.update({ 
@@ -32,9 +33,7 @@ class media(wxPyWidgetSkinElement):
 
     defaultStyleSettings = wxPyWidgetSkinElement.defaultStyleSettings.copy()
     defaultStyleSettings.update({
-        'backend': 'u""',
-        'bestfit': True,
-        'playercontrols': False,
+        'FitInside': True,
         })
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -43,23 +42,9 @@ class media(wxPyWidgetSkinElement):
 
     def createWidget(self, parentObj):
         
-        kwWX = self.getStyleSettingsCollectionWX(('style', 'pos', 'size', 'backend'), )
-        kwWX.rename(szBackend='backend')
-        playercontrols = self.getStyleSettingEval('playercontrols')
-
-
-        #Create(self, Window parent, int id=-1, String fileName=EmptyString, 
-        #    Point pos=DefaultPosition, Size size=DefaultSize, 
-        #    long style=0, String szBackend=EmptyString, 
-        #    Validator validator=DefaultValidator, 
-        #    String name=MediaCtrlNameStr) -> bool
-        obj = MediaCtrl(parentObj, **kwWX)
-
-        if playercontrols:
-            obj.ShowPlayerControls(MEDIACTRLPLAYERCONTROLS_DEFAULT)
-
-        if self.getStyleSettingEval('bestfit', False):
-            obj.SetBestFittingSize()
+        kwWX = self.getStyleSettingsCollectionWX(('style', 'pos', 'size',), )
+        kwWX.pop('id', None)
+        obj = FlashWindow(parentObj, **kwWX)
         
         return obj
 
@@ -67,9 +52,7 @@ class media(wxPyWidgetSkinElement):
         pass
 
     def installDefaultEvent(self, evtHandler, evtObject, evtCallback):
-        if hasattr(wx.media, 'EVT_MEDIA_STATECHANGED'):
-            wx.media.EVT_MEDIA_STATECHANGED(evtHandler, evtObject.GetId(), evtCallback)
-        else:
-            wx.media.EVT_MEDIA_LOADED(evtHandler, evtObject.GetId(), evtCallback)
+        pass
+        
 
 

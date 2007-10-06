@@ -31,7 +31,7 @@ xmlSkin = XMLSkin("""<?xml version='1.0'?>
             <panel>
                 <layout>
                     <layout layout-cfg="1,EXPAND">
-                        <media ctxobj="movie" playercontrols="True" >
+                        <media ctxobj="movie" playercontrols="True" style="SUNKEN_BORDER">
                             obj.Load('Zero_to_130.mpg')
                             <event>
                                 print "It's Stopped:", obj.GetState()

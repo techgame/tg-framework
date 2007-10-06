@@ -10,31 +10,35 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 from TG.skinning.toolkits.wx import wxSkinModel, XMLSkin
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Constants / Variables / Etc. 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
 xmlSkin = XMLSkin("""<?xml version='1.0'?>
 <skin xmlns='TG.skinning.toolkits.wx'>
     <style>
-        frame {frame-main:1; locking:1; size:'800,600'}
+        frame {frame-main:1; locking:1; }
         frame>layout {layout-cfg:'1,EXPAND'}
+        layout>layout {layout-cfg:'1,EXPAND'}
         frame>layout>panel {layout-cfg:'1,EXPAND'}
     </style>
 
-    <frame title='My Frame' show='1'>
+    <frame title='Flash Control Frame' show='1'>
         <layout>
-            <panel>
-                <layout orient='horizontal'>
-                    <activex clsid='Shell.Explorer' layout-cfg='1,EXPAND'>
+            <panel layout-cfg="1,EXPAND">
+                <layout layout-cfg="1,EXPAND">
+                    <flash layout-cfg="1,EXPAND" ctxobj="flashMovie" style='SUNKEN_BORDER'>
                         import os
-                        # Allow the Shell explorer to resize properly by calling this after the frame is setup
-                        CallAfter(obj.CallAXMethod, 'Navigate2', os.getcwd())
-                    </activex>
+                        obj.movie='http://www.homestarrunner.com//sbemail163.swf'
+                        #obj.LoadMovie(0,'file://' + os.path.abspath('Asteroid_blaster.swf'))
+                        #obj.Stop()
+                    </flash>
+                    <layout layout-cfg="0,EXPAND" orientation='horizontal'>
+                        <button label='Play'><event>ctx.flashMovie.Play()</event></button>
+                        <button label='Stop'><event>ctx.flashMovie.Stop()</event></button>
+                    </layout>
                 </layout>
             </panel>
         </layout>
@@ -48,5 +52,4 @@ xmlSkin = XMLSkin("""<?xml version='1.0'?>
 
 if __name__ == '__main__':
     wxSkinModel.fromSkin(xmlSkin).skinModel()
-
 
