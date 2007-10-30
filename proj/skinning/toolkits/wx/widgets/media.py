@@ -59,7 +59,7 @@ class media(wxPyWidgetSkinElement):
             obj.ShowPlayerControls(MEDIACTRLPLAYERCONTROLS_DEFAULT)
 
         if self.getStyleSettingEval('bestfit', False):
-            obj.SetBestFittingSize()
+            obj.SetInitialSize()
         
         return obj
 
