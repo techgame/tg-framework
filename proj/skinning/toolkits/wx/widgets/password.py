@@ -28,5 +28,5 @@ class password(textbox):
         })
 
     def installDefaultEvent(self, evtHandler, evtObject, evtCallback):
-        wx.EVT_TEXT_ENTER(evtHandler, evtObject.GetId(), evtCallback)
+        wx.EVT_TEXT(evtHandler, evtObject.GetId(), evtCallback)
 
