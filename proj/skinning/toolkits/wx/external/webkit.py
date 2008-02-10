@@ -12,6 +12,10 @@
 
 from TG.skinning.toolkits.wx._baseElements import *
 import wx.webkit 
+try:
+    import wx.webview 
+except ImportError:
+    wx.webview = None
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
@@ -23,7 +27,7 @@ class webkit(wxPyWidgetSkinElement):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     elementGlobals = wxPyWidgetSkinElement.elementGlobals.copy()
-    elementGlobals.update(vars(wx.webkit ))
+    elementGlobals.update(vars(wx.webkit))
 
     defaultSettings = wxPyWidgetSkinElement.defaultSettings.copy()
     defaultSettings.update({ 
@@ -43,12 +47,28 @@ class webkit(wxPyWidgetSkinElement):
     def createWidget(self, parentObj):
         kwWX = self.getStyleSettingsCollectionWX(['style', 'pos', 'size'], ['ref'])
         kwWX.rename(strURL='ref', winID='id')
-        obj = wx.webkit.WebKitCtrl(parentObj, **kwWX)
+        try:
+            obj = wx.webkit.WebKitCtrl(parentObj, **kwWX)
+        except NotImplementedError:
+            if wx.webview is not None:
+                return self.createWidgetFallback(parentObj)
+            else: raise
+        return obj
+
+    _inFallback = False
+    def createWidgetFallback(self, parentObj):
+        kwWX = self.getStyleSettingsCollectionWX()
+        obj = wx.webview.WebView(parentObj, **kwWX)
+        self._inFallback = obj is not None
         return obj
 
     def finishWidget(self, obj, parentObj):
-        pass
+        ref = self.getStyleSetting('ref', None)
+        if ref: obj.LoadURL(ref)
 
     def installDefaultEvent(self, evtHandler, evtObject, evtCallback):
-        wx.webkit.EVT_WEBKIT_STATE_CHANGED(evtHandler, evtCallback)
+        if self._inFallback:
+            wx.webview.EVT_WEBVIEW_STATE_CHANGED(evtHandler, evtCallback)
+        else:
+            wx.webkit.EVT_WEBKIT_STATE_CHANGED(evtHandler, evtCallback)
 

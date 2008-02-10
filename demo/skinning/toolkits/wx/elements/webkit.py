@@ -32,7 +32,7 @@ xmlSkin = XMLSkin("""<?xml version='1.0'?>
                 <layout>
                     <webkit ref='http://python.org' layout-cfg='1,EXPAND'>
                         <event>
-                            print "Nifty!:", e
+                            print "Nifty!:", evt
                             evt.Skip()
                         </event>
                     </webkit>
