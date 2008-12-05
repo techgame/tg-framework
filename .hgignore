@@ -3,7 +3,6 @@ syntax: glob
 syntax: regexp
 
 syntax: glob
-Icon?
 \.DS_Store
 *.pyc
 *.pyo
@@ -21,3 +20,7 @@ syntax: regexp
 ^proj/BridgeClient/app/db/bridge.fs.tmp
 ^proj/BridgeClient/dist
 ^proj/BridgeClient/build
+
+syntax: regexp
+Icon\r
+
