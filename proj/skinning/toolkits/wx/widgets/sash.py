@@ -91,7 +91,6 @@ class sash(wxPyWidgetSkinElement):
         'orient': 'auto',
 
         'edges': 'auto',
-        'borders': 'auto',
         'size-border': 'None',
         'size-border-all': 'None',
 
@@ -187,14 +186,4 @@ class sash(wxPyWidgetSkinElement):
         extraBorderSize = self.getStyleSettingEval('size-border-all')
         if extraBorderSize is not None:
             obj.SetExtraBorderSize(extraBorderSize)
-
-        borders = self.getStyleSettingEval('borders')
-        if borders == 'auto':
-            borders = edges
-        elif isinstance(borders, int): 
-            borders = borders,
-        elif borders is None: 
-            borders = ()
-        for edge in borders:
-            obj.SetSashBorder(edge, True)
 
