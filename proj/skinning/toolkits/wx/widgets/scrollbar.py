@@ -34,6 +34,7 @@ class scrollbar(wxPyWidgetSkinElement):
         'max': '100',
         'thumb': '1',
         'page': '10',
+        'range': '100',
         })
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,8 +45,8 @@ class scrollbar(wxPyWidgetSkinElement):
         kwWX = self.getStyleSettingsCollectionWX(('style', 'pos', 'size'))
         obj = wx.ScrollBar(parentObj, **kwWX)
 
-        kwSB = self.getStyleSettingsCollection(('value', 'thumb', 'page', 'max'))
-        kwSB.rename(position='value', range='max', pageSize='page', thumbSize='thumb')
+        kwSB = self.getStyleSettingsCollection(('value', 'thumb',  'max', 'style'))
+        kwSB.rename(position='value', range='max',  thumbSize='thumb', orientation='style')
         obj.SetScrollbar(**kwSB)
         return obj
 
