@@ -14,7 +14,6 @@
 import os, sys
 import types
 import unittest
-import traceback
 
 from TG.common import path
 
@@ -103,7 +102,7 @@ class TestSuitePackage(TestSuite):
                 testmodule = __import__(testmodule.name[:-3], {}, {}, None)
                 result.append(self.testLoader.loadTestsFromModule(testmodule))
             except StandardError:
-                traceback.print_exc()
+                sys.excepthook(*sys.exc_info())
         sys.path.pop(0)
 
         if self.recurse:
