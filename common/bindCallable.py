@@ -279,15 +279,15 @@ if __name__ == '__main__':
 
     try:
         b1()
-        assert(0, "Shouldn't ever get here")
+        assert 0, "Shouldn't ever get here"
     except weakref.ReferenceError:
         pass
 
     try:
         if b2:
             b2()
-            assert(0, "Shouldn't ever get here")
+            assert 0, "Shouldn't ever get here"
     except weakref.ReferenceError:
-        assert(0, "Shouldn't ever get here")
+        assert 0, "Shouldn't ever get here"
 
     print "Test complete."
